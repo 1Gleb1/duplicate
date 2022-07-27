@@ -52,7 +52,7 @@ const Poster = ({ movie, index }) => {
         <div className="relative">
           <div className="absolute bg-gray-700 bg-opacity-60 py-2 left-0 right-0 bottom-0">
             <h5 className="font-bold text-[16px] text-center py-2 ">
-              {movie.original_title}
+              {movie.original_title ? movie.title : movie.name}
             </h5>
           </div>
           <motion.span
