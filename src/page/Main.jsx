@@ -87,30 +87,32 @@ const Main = () => {
           ))}
         </Swiper>
       </div> */}
-      <div className="flex justify-center items-center pt-4">
+      <div className="flex justify-center items-center pt-4 ">
         {listSer.results && (
           <button
             onClick={handleHome}
-            className={"text-xl font-bold text-center bg-red-500 w-8 h-8"}
+            className={
+              "text-xl font-bold text-center bg-red-500 w-12 h-12 rounded-l-lg mb-2 -mr-1 opacity-80"
+            }
           >
             Х
           </button>
         )}
         <Search setListSer={setListSer} setMovieItems={setMovieItems} />
       </div>
-      <div className="w-full flex py-4">
-        <button
-          className=" w-1/2 item-center"
-          onClick={() => handleTypeAndItems(movieItems)}
-        >
-          MOVIE
-        </button>
-        <button
-          className=" w-1/2 item-center"
-          onClick={() => handleTypeAndItems(!movieItems)}
-        >
-          SERIES/TVshows/ANIME
-        </button>
+      <div className="max-w-xl m-auto py-4 ">
+        <div className="flex justify-between">
+          <button onClick={() => handleTypeAndItems(movieItems)}>
+            <div className="px-3 py-2 bg-gray-600 rounded-full hover:scale-[1.05]">
+              MOVIE
+            </div>
+          </button>
+          <button onClick={() => handleTypeAndItems(!movieItems)}>
+            <div className="px-3 py-2 bg-gray-600 rounded-full hover:scale-[1.05]">
+              SERIES/TVshows/ANIME
+            </div>
+          </button>
+        </div>
       </div>
       {!listSer.results && typeContent == "movie" && (
         <div className="py-2">

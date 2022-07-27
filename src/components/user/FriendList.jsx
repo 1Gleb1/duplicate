@@ -1,18 +1,5 @@
 import { getAuth } from "firebase/auth";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  onSnapshot,
-  orderBy,
-  query,
-  setDoc,
-  where,
-  getDoc,
-  limit,
-  serverTimestamp,
-} from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { firestore } from "../../firebase/clientApp";
 import Chat from "./Chat";
@@ -20,9 +7,7 @@ import Chat from "./Chat";
 const FriendList = () => {
   const [currentID, setCurrentID] = useState("");
   const [anotherUser, setAnotherUser] = useState();
-  const [newMessage, setNewMessage] = useState("");
   const [userArray, setUserArray] = useState([]);
-  const [messages, setMessages] = useState([]);
 
   const auth = getAuth();
   const user = auth.currentUser;
@@ -39,7 +24,6 @@ const FriendList = () => {
   };
 
   const getCurrentId = (friendUid, friendUser) => {
-    setMessages([]);
     let str;
     if (currentUserUid >= friendUid) {
       str = currentUserUid + friendUid;
@@ -48,30 +32,11 @@ const FriendList = () => {
       str = friendUid + currentUserUid;
     }
     setCurrentID(str);
-    // getChats(friendUser);
     setAnotherUser(friendUser);
   };
 
   useEffect(() => {
     getArrayUser();
-    const getChats = () => {
-      if (currentID) {
-        const chatsDocRef = collection(
-          firestore,
-          `chats/${currentID}/messages`
-        );
-        console.log(currentID);
-        const chatsQuery = query(chatsDocRef, orderBy("createOn", "asc"));
-        const unsub = onSnapshot(chatsQuery, (snapshot) => {
-          let msg = [];
-          snapshot.forEach((doc) => {
-            msg.push(doc.data());
-          });
-          setMessages(msg);
-        });
-      }
-    };
-    getChats();
   }, [anotherUser]);
 
   return (
@@ -97,10 +62,6 @@ const FriendList = () => {
         <Chat
           anotherUser={anotherUser}
           setAnotherUser={setAnotherUser}
-          newMessage={newMessage}
-          setNewMessage={setNewMessage}
-          messages={messages}
-          setMessages={setMessages}
           currentID={currentID}
           setCurrentID={setCurrentID}
         />

@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { GrSend } from "react-icons/gr";
 import { getAuth } from "firebase/auth";
 import { firestore } from "../../firebase/clientApp";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-const Chat = ({
-  setAnotherUser,
-  anotherUser,
-  newMessage,
-  setNewMessage,
-  messages,
-  currentID,
-}) => {
-  const { displayName, email, uid } = anotherUser;
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
+
+const Chat = ({ setAnotherUser, anotherUser, currentID }) => {
+  const [newMessage, setNewMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+
+  const { displayName } = anotherUser;
   const auth = getAuth();
   const user = auth.currentUser;
   const currentUserId = user.uid;
@@ -34,6 +38,27 @@ const Chat = ({
     }
     setNewMessage("");
   };
+
+  useEffect(() => {
+    const getChats = () => {
+      if (currentID) {
+        const chatsDocRef = collection(
+          firestore,
+          `chats/${currentID}/messages`
+        );
+
+        const chatsQuery = query(chatsDocRef, orderBy("createOn", "asc"));
+        const unsub = onSnapshot(chatsQuery, (snapshot) => {
+          let msg = [];
+          snapshot.forEach((doc) => {
+            msg.push(doc.data());
+          });
+          setMessages(msg);
+        });
+      }
+    };
+    getChats();
+  }, []);
 
   return (
     <div className="bg-gray-700 p-4 rounded-lg flex flex-col h-screen w-[600px]">

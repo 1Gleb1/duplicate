@@ -36,20 +36,20 @@ const Poster = ({ movie, index }) => {
       >
         {" "}
         {/* relative */}
-        <div className="absolute top-1 right-1">
-          <div>
-            <p
-              className={`w-10 h-10 flex justify-center items-center text-white font-medium ${
-                movie.vote_average < 5 ? "bg-red-600" : "bg-emerald-600"
-              } rounded-full text-shdow`}
-            >
-              {movie.vote_average !== 10
-                ? movie.vote_average.toFixed(1)
-                : movie.vote_average}
-            </p>
-          </div>
-        </div>
         <div className="relative">
+          <div className="absolute top-1 right-1">
+            <div>
+              <p
+                className={`w-10 h-10 flex justify-center items-center text-white font-medium ${
+                  movie.vote_average < 5 ? "bg-red-600" : "bg-emerald-600"
+                } rounded-full text-shdow bg-gray-600`}
+              >
+                {movie.vote_average !== 10
+                  ? movie.vote_average.toFixed(1)
+                  : movie.vote_average}
+              </p>
+            </div>
+          </div>
           <div className="absolute bg-gray-700 bg-opacity-60 py-2 left-0 right-0 bottom-0">
             <h5 className="font-bold text-[16px] text-center py-2 ">
               {movie.original_title ? movie.title : movie.name}
