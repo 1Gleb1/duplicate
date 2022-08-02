@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import { GrSend } from "react-icons/gr";
 import { getAuth } from "firebase/auth";
 import { firestore } from "../../firebase/clientApp";
@@ -10,8 +11,10 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
+import { useRef } from "react";
 
 const Chat = ({ setAnotherUser, anotherUser, currentID }) => {
+  const anchor = useRef();
   const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
@@ -26,6 +29,9 @@ const Chat = ({ setAnotherUser, anotherUser, currentID }) => {
 
   const sendMessage = async (e, msg) => {
     e.preventDefault();
+    // console.log(wrap.clientHeight);
+    // console.log(wrap.scrollTop(wrap.clientHeight));
+
     if (msg.length === 0) {
       return;
     } else {
@@ -37,38 +43,43 @@ const Chat = ({ setAnotherUser, anotherUser, currentID }) => {
       });
     }
     setNewMessage("");
+    anchor.current.scrollIntoView({ behvior: "smooth" });
+  };
+
+  const getChats = () => {
+    if (currentID) {
+      const chatsDocRef = collection(firestore, `chats/${currentID}/messages`);
+
+      const chatsQuery = query(chatsDocRef, orderBy("createOn", "asc"));
+      const unsub = onSnapshot(chatsQuery, (snapshot) => {
+        let msg = [];
+        snapshot.forEach((doc) => {
+          msg.push(doc.data());
+        });
+        setMessages(msg);
+      });
+      return () => {
+        unsub();
+      };
+    }
   };
 
   useEffect(() => {
-    const getChats = () => {
-      if (currentID) {
-        const chatsDocRef = collection(
-          firestore,
-          `chats/${currentID}/messages`
-        );
-
-        const chatsQuery = query(chatsDocRef, orderBy("createOn", "asc"));
-        const unsub = onSnapshot(chatsQuery, (snapshot) => {
-          let msg = [];
-          snapshot.forEach((doc) => {
-            msg.push(doc.data());
-          });
-          setMessages(msg);
-        });
-      }
-    };
     getChats();
   }, []);
 
   return (
-    <div className="bg-gray-700 p-4 rounded-lg flex flex-col h-screen w-[600px]">
+    <div className="bg-gray-700 p-4 rounded-lg flex flex-col w-[600px] h-[600px]">
       <div className="flex justify-between items-center">
         <button onClick={() => back()}>Back</button>
         <h5 className=" font-bold mb-3 text-center">{displayName}</h5>
         <div />
       </div>
       {/*  */}
-      <div className=" flex flex-col flex-grow overflow-auto rounded-lg bg-[#111E41] p-2  ">
+      <div
+        className=" flex flex-col flex-grow overflow-auto rounded-lg bg-[#111E41] p-2 h-[600px]"
+        id="wrap"
+      >
         {messages &&
           messages.map((message, index) => (
             <div className="flex relative" key={index}>
@@ -97,6 +108,7 @@ const Chat = ({ setAnotherUser, anotherUser, currentID }) => {
               </div>
             </div>
           ))}
+        <div ref={anchor}></div>
       </div>
       {/*  */}
       <div className="my-2">

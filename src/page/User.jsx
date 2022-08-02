@@ -9,7 +9,6 @@ import Wishlist from "../components/user/Wishlist";
 const User = () => {
   const auth = getAuth();
   const [isUser, setIsUser] = useState(false);
-
   const uid = auth.currentUser ? auth.currentUser.uid : "";
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -24,7 +23,7 @@ const User = () => {
   const saveUser = async (user) => {
     const itemUser = {
       uid: user.uid,
-      displayName: user.displayName,
+      displayName: user.displayName || user.email,
       email: user.email,
     };
     await setDoc(doc(firestore, "user", user.uid), itemUser);
@@ -39,12 +38,9 @@ const User = () => {
       {isUser && (
         <div className="flex flex-col lg:flex-row justify-between max-w-7xl w-full">
           <div>
-            <h2 className="text-center text-xl font-bold bg-slate-700 text-white rounded-lg py-2 mb-2">
-              FrienList
-            </h2>
             <FriendList />
           </div>
-          <Wishlist uid={uid} />  
+          <Wishlist uid={uid} />
         </div>
       )}
     </div>

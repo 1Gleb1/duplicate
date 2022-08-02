@@ -8,7 +8,7 @@ import User from "./page/User";
 
 function App() {
   return (
-    <div className="w-full min-h-screen text-white" data-theme="night">
+    <div className="w-full min-h-screen text-white bg-black" data-theme="night">
       <BgParticles />
       <Routes>
         <Route path="/" element={<Main />} />

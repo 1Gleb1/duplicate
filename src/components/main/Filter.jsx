@@ -46,12 +46,12 @@ const Filter = ({
       code: "12",
       bgColor: "bg-amber-800",
     },
-    {
-      name: "Animation",
-      icon: <GiBalloons className="text-6xl text-yellow-500" />,
-      code: "35",
-      bgColor: "bg-yellow-700",
-    },
+    // {
+    //   name: "Animation",
+    //   icon: <GiBalloons className="text-6xl text-yellow-500" />,
+    //   code: "35",
+    //   bgColor: "bg-yellow-700",
+    // },
     {
       name: "Crime",
       icon: <GiHandcuffs className="text-6xl text-gray-500" />,
@@ -100,12 +100,12 @@ const Filter = ({
       code: "9648",
       bgColor: "bg-emerald-800",
     },
-    {
-      name: "Romance",
-      icon: <GiCharm className="text-6xl text-pink-600" />,
-      code: "10749",
-      bgColor: "bg-pink-800",
-    },
+    // {
+    //   name: "Romance",
+    //   icon: <GiCharm className="text-6xl text-pink-600" />,
+    //   code: "10749",
+    //   bgColor: "bg-pink-800",
+    // },
     {
       name: "Science Fiction",
       icon: <GiFallingBlob className="text-6xl text-orange-600" />,
@@ -155,43 +155,60 @@ const Filter = ({
   };
 
   return (
-    <div className=" text-sm m-auto max-w-5xl">
-      <Swiper
-        spaceBetween={10}
-        breakpoints={{
-          320: {
-            slidesPerView: 2.5,
-          },
-          640: {
-            slidesPerView: 4,
-          },
-          768: {
-            slidesPerView: 6,
-          },
-          1000: {
-            slidesPerView: 7.5,
-          },
-        }}
-        className=" mx-auto"
-      >
-        {genres.map((item, index) => (
-          <SwiperSlide key={index}>
-            <button
-              onClick={() => handleGeter(item.code)}
-              className={`${
-                activeGenre.some((genre) => genre == item.code)
-                  ? "bg-indigo-800"
-                  : " bg-opacity-50"
-              } w-32 h-28 flex flex-col gap-2 justify-center items-center px-6 py-2 bg-gray-800 rounded-lg border-2 border-indigo-900
-                `}
-            >
-              {item.icon}
-              {item.name}
-            </button>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <div className="grid grid-cols-5 gap-2 w-[1200px]">
+      {genres.map((item, index) => (
+        <div key={index} className=" text-base px-12">
+          <button
+            onClick={() => handleGeter(item.code)}
+            className={`hover:underline bg-gray-900 bg-opacity-30 px-2 py-1 rounded-sm ${
+              activeGenre.some((genre) => genre == item.code)
+                ? "text-indigo-800 font-bold"
+                : " text-opacity-50"
+            } 
+            `}
+          >
+            {item.name}
+          </button>
+        </div>
+      ))}
     </div>
+    // <div className=" text-sm m-auto max-w-5xl">
+    //   <Swiper
+    //     spaceBetween={10}
+    //     breakpoints={{
+    //       320: {
+    //         slidesPerView: 2.5,
+    //       },
+    //       640: {
+    //         slidesPerView: 4,
+    //       },
+    //       768: {
+    //         slidesPerView: 6,
+    //       },
+    //       1000: {
+    //         slidesPerView: 7.5,
+    //       },
+    //     }}
+    //     className=" mx-auto"
+    //   >
+    //     {genres.map((item, index) => (
+    //       <SwiperSlide key={index}>
+    //         <button
+    //           onClick={() => handleGeter(item.code)}
+    //           className={`${
+    //             activeGenre.some((genre) => genre == item.code)
+    //               ? "bg-indigo-800"
+    //               : " bg-opacity-50"
+    //           } w-32 h-28 flex flex-col gap-2 justify-center items-center px-6 py-2 bg-gray-800 rounded-lg border-2 border-indigo-900
+    //             `}
+    //         >
+    //           {item.icon}
+    //           {item.name}
+    //         </button>
+    //       </SwiperSlide>
+    //     ))}
+    //   </Swiper>
+    // </div>
   );
 };
 

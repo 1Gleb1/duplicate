@@ -4,6 +4,7 @@ import Allert from "./Allert";
 
 const Register = () => {
   const auth = getAuth();
+  const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
@@ -32,6 +33,13 @@ const Register = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <form onSubmit={handleRegister} className="flex flex-col gap-4">
+        <input
+          className="px-2 py-1 text-white bg-gray-700 border-2 border-gray-900 rounded-lg"
+          required
+          type="text"
+          placeholder="Enter your name..."
+          ref={nameRef}
+        />
         <input
           className="px-2 py-1 text-white bg-gray-700 border-2 border-gray-900 rounded-lg"
           required

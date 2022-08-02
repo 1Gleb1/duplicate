@@ -28,7 +28,7 @@ const Search = ({ setListSer }) => {
   };
 
   return (
-    <div className="mb-2">
+    <div className="">
       <div className="form-control">
         <form className="input-group" onSubmit={(e) => enterEvent(e, keyword)}>
           <input
@@ -36,10 +36,11 @@ const Search = ({ setListSer }) => {
             placeholder="Search..."
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
-            className="input input-border"
+            className="input input-border h-9"
           />
-          <button className="btn btn-square">
-            <AiOutlineSearch className="text-2xl" />
+          <button className="btn btn-sm h-9">
+            {/* //btn btn-square */}
+            <AiOutlineSearch className="text-xl" />
           </button>
         </form>
       </div>

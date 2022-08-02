@@ -4,7 +4,7 @@ import apiConfig from "../api/apiConfig";
 import tmdbApi from "../api/tmdbApi";
 import Poster from "../components/Poster";
 import { firestore } from "../firebase/clientApp";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import Player from "../components/movie/Player";
 import Hero from "../components/movie/Hero";
@@ -26,8 +26,16 @@ const Movie = () => {
 
   const handleAdd = async (titlePlayList) => {
     if (titlePlayList.length) {
-      const newItem = { ...movie, uid, titlePlayList };
-      await addDoc(collection(firestore, "favorite"), newItem);
+      const newItem = { ...movie };
+      // const docRef = doc(firestore, `favorite/${uid}`);
+      const docFullRef = collection(
+        firestore,
+        `favorite/${uid}/${titlePlayList}`
+      );
+      // await setDoc(docRef, authItem);
+      await addDoc(docFullRef, newItem);
+    } else {
+      console.log("ПУСТО");
     }
   };
 
