@@ -65,13 +65,13 @@ const Main = () => {
 
   return (
     <div className="min-w-[300px] max-w-[1200px] mx-auto w-full min-h-screen">
-      <div className="h-64"></div>
+      {/* <div className="h-64"></div>
 
       <div className="flex justify-between items-center w-full bg-pink-900 h-[60px] p-1 px-8">
         <div></div>
         <div className="text-3xl">НАЗВАНИЕ</div>
         <div>account</div>
-      </div>
+      </div> */}
       <div className="flex justify-between items-center w-full bg-red-900 h-[48px]">
         <div className="flex gap-1">
           <div className="bg-blue-500 h-12 w-64 text-center text-black">
