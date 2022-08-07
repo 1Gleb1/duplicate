@@ -65,7 +65,7 @@ const Hero = ({
                     <Link
                       to={`/room/${(+new Date()).toString(
                         16
-                      )}/movie_${movieID}_${originTitle}`}
+                      )}/movie_${movieID}_${movieTitle}`}
                     >
                       <a className="btn btn-primary btn-xl">Create room</a>
                     </Link>

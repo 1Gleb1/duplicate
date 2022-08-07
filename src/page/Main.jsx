@@ -88,13 +88,13 @@ const Main = () => {
               </div>
             </button>
           </div>
-          <div className="bg-purple-500 h-12 w-64 text-center text-black">
+          {/* <div className="bg-purple-500 h-12 w-64 text-center text-black">
             <button onClick={() => handleTypeAndItems(!movieItems)}>
               <div className="px-3 py-2 text-xl rounded-full hover:scale-[1.05]">
                 Cartoon
               </div>
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="pt-1 pr-2">
           <Search setListSer={setListSer} setMovieItems={setMovieItems} />
@@ -104,7 +104,7 @@ const Main = () => {
       <div className=" max-w-[1600] w-full h-full bg-gray-600 mx-auto rounded-sm">
         <h2 className="text-3xl ml-6 sm:ml-12 py-6 pl-10">Popular :)))</h2>
         <div className="flex justify-center">
-          <div className="relative w-full max-w-5xl h-72">
+          <div className="relative w-full max-w-5xl">
             <Swiper
               // className="relative rounded-xl w-full h-full flex max-w-5xl"\
               cssMode={true}
@@ -114,6 +114,7 @@ const Main = () => {
               mousewheel={true}
               // navigation={true}
               modules={[Mousewheel, Keyboard, Navigation]}
+              className="py-12"
             >
               {popularList.map((item, index) => (
                 // <SwiperSlide key={index}>
@@ -127,17 +128,17 @@ const Main = () => {
                 //     <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-transparent via-transparent to-[#111827D9]" />
                 //   </Link>
                 // </SwiperSlide>
-                <SwiperSlide key={index}>
+                <SwiperSlide className="py-4" key={index}>
                   <Poster movie={item} />
                 </SwiperSlide>
               ))}
             </Swiper>
-            <div className=" absolute -left-16 top-0">
+            <div className=" absolute -left-16 top-4">
               <span className="flex items-center justify-center h-[260px] w-12 bg-gray-800">
                 {"<"}
               </span>
             </div>
-            <div className=" absolute -right-16 top-0">
+            <div className=" absolute -right-16 top-4">
               <span className="flex items-center justify-center h-[260px] w-12 bg-gray-800">
                 {">"}
               </span>
@@ -160,20 +161,22 @@ const Main = () => {
           </div>
         </div> */}
 
-        <div className="flex justify-between items-center w-full bg-red-900 h-[150px] my-20 relative">
-          <div className="absolute -top-8 left-5">КАТЕГОРИИИИИИИИ...</div>
-          {!listSer.resultsS && (
-            <div className="py-2">
-              <Filter
-                setPageEx={setPageEx}
-                setActiveGenre={setActiveGenre}
-                activeGenre={activeGenre}
-                handleTypeAndItems={handleTypeAndItems}
-                movieItems={movieItems}
-                setMovieItems={setMovieItems}
-              />
-            </div>
-          )}
+        <div className="flex justify-between items-center w-full bg-red-900 mt-20 relative ">
+          <div className="py-2">
+            <div className="absolute -top-8 left-5">КАТЕГОРИИИИИИИИ...</div>
+            {!listSer.resultsS && (
+              <div className="">
+                <Filter
+                  setPageEx={setPageEx}
+                  setActiveGenre={setActiveGenre}
+                  activeGenre={activeGenre}
+                  handleTypeAndItems={handleTypeAndItems}
+                  movieItems={movieItems}
+                  setMovieItems={setMovieItems}
+                />
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="m-auto pt-6 px-6 rounded-lg max-w-[1100px]">

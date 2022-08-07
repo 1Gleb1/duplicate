@@ -106,7 +106,6 @@ const FriendList = () => {
     const unsub = onSnapshot(docRef, (snapshot) => {
       snapshot.forEach(async (usersi) => {
         if (usersi.data().user.email == friendDel.email) {
-          console.log(usersi.id);
           await deleteDoc(
             doc(firestore, "friends", user.email, "list", usersi.id)
           );

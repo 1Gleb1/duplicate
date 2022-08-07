@@ -18,83 +18,38 @@ const Wishlist = ({ uid }) => {
   const [favoriteList, setFavoriteList] = useState([]);
   const [playlistName, setPlaylistName] = useState([]);
 
-  const getFavoriteList = async () => {
-    // const docRef = doc(firestore, "favorite", uid, "plalist", "Create");
-    // const docSnap = await getDoc(docRef);
-    // const docSnap = await getDocs(docRef);
-    // console.log(docSnap);
-    // docSnap.forEach((doc) => {
-    //   console.log(doc.data());
-    // });
-    // let docSnap = await getDoc(docRef);
-    // console.log(docSnap.data());
-    // const queryPlaylist = collection(firestore, "favorite");
-    // const docPlaylist = await getDocs(queryPlaylist);
-    // console.log(docPlaylist.exists());
-    // const unsubscribePlaylist = onSnapshot(queryPlaylist, (querySnapshot) => {
-    //   let arrName = [];
-    //   querySnapshot.forEach((doc) => {
-    // console.log(doc.id);
-    // arrName.push(doc.id);
-    //   });
-    //   console.log(arrName);
-    //   setPlaylistName(arrName);
-    // });
-    // playlistName.forEach(async (name) => {
-    //   console.log(name);
-    //   const docMovieRef = doc(firestore, "favorite", uid, "playlist", name);
-    //   const docMovieList = await getDoc(docMovieRef);
-    //   console.log(docMovieList.data());
-    // const unsubscribeMovies = onSnapshot(queryMovieList, (querySnapshot) => {
-    // let arrName = [];
-    // querySnapshot.forEach((doc) => {
-    //   arrName.push(doc.id);
-    // });
-    //   console.log(querySnapshot);
-    // });
-    // });
-    // console.log(playlistName);
-  };
-
-  const getWhishList = async () => {
-    const q = query(collection(firestore, "favorite"));
-
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-    });
-    // const unsub = onSnapshot(
-    //   collection(firestore, "firebase", uid, "new"),
-    //   (doc) => {
-    //     console.log(doc);
-    //     doc.forEach((d) => {
-    //       console.log(d);
-    //     });
-    //   }
-    // );
-    // return () => {
-    //   unsub();
-    // };
-    //   const docRef = doc(firestore, uid);
-    //   const docSnap = await getDoc(docRef);
-
-    //   if (docSnap.exists()) {
-    //     console.log("Document data:", docSnap.data());
-    //   } else {
-    //     // doc.data() will be undefined in this case
-    //     console.log("No such document!");
-    //   }
-  };
-
   // const handleDelete = async (index) => {
   //   const itemRef = doc(firestore, "favorite", favoriteList[index].id);
   //   await deleteDoc(itemRef);
   // };
 
-  useEffect(() => {
-    getWhishList();
+  const getNamesPlaylists = async () => {
+    const queryPlaylist = doc(firestore, "favorite", uid);
+    const docPlaylist = await getDoc(queryPlaylist);
+    console.log(docPlaylist);
+    const unsubscribePlaylist = onSnapshot(queryPlaylist, (querySnapshot) => {
+      let arrName = [];
+      // querySnapshot.forEach((doc) => {
+      //   console.log(doc.id);
+      //   arrName.push(doc.id);
+      // });
+      console.log(querySnapshot);
+      setPlaylistName(arrName);
+    });
+  };
 
+  let unsub;
+  const getWhishList = () => {
+    const docRef = collection(firestore, "favorite", uid, "second");
+    unsub = onSnapshot(docRef, (snapshot) => {
+      snapshot.forEach((doc) => {
+        console.log(doc);
+      });
+    });
+  };
+  useEffect(() => {
+    getNamesPlaylists();
+    // getWhishList();
     // return () => {
     //   unsub();
     // };

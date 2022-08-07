@@ -155,22 +155,24 @@ const Filter = ({
   };
 
   return (
-    <div className="grid grid-cols-5 gap-2 w-[1200px]">
-      {genres.map((item, index) => (
-        <div key={index} className=" text-base px-12">
-          <button
-            onClick={() => handleGeter(item.code)}
-            className={`hover:underline bg-gray-900 bg-opacity-30 px-2 py-1 rounded-sm ${
-              activeGenre.some((genre) => genre == item.code)
-                ? "text-indigo-800 font-bold"
-                : " text-opacity-50"
-            } 
+    <div className="w-[800px] p-4">
+      <div className="grid grid-cols-5 gap-2 ">
+        {genres.map((item, index) => (
+          <div key={index} className=" text-base px-12">
+            <button
+              onClick={() => handleGeter(item.code)}
+              className={`hover:underline bg-gray-900 bg-opacity-30 px-2 py-1 rounded-sm ${
+                activeGenre.some((genre) => genre == item.code)
+                  ? "text-indigo-800 font-bold"
+                  : " text-opacity-50"
+              } 
             `}
-          >
-            {item.name}
-          </button>
-        </div>
-      ))}
+            >
+              {item.name}
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
     // <div className=" text-sm m-auto max-w-5xl">
     //   <Swiper
