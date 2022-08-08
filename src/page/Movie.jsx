@@ -112,7 +112,7 @@ const Movie = () => {
       <div>
         {collectionMovie.length && (
           <div className=" w-[1000px] ">
-            <div className="pl-14 w-[900px] flex flex-col items-start gap-1 flex-wrap pt-8 mb-8">
+            <div className="pl-12 w-[900px] flex flex-col items-start gap-1 flex-wrap pt-8 mb-8">
               <span className="text-3xl mb-4"> Collection:</span>
               {collectionMovie &&
                 collectionMovie.map((movie, index) => (
@@ -132,9 +132,9 @@ const Movie = () => {
                 ))}
             </div>
             <div className="h-20 w-[1000px] bg-[#1c405a]" />
-            <div className="pl-14 w-[900px] flex flex-col flex-wrap pt-8 mb-8">
+            <div className="pl-12 w-[900px] flex flex-col flex-wrap pt-8 mb-8">
               <span className="text-3xl mb-4"> Related:</span>
-              <div className="flex gap-6 mb-4">
+              <div className="flex gap-6 mb-4 w-[800px]">
                 {collectionMovie &&
                   collectionMovie.map((movie, index) => (
                     <Link

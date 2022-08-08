@@ -46,8 +46,8 @@ const Player = ({
   };
 
   return (
-    <div className="my-12 flex justify-center  w-full h-[250px] sm:h-[520px]">
-      <div className="relative w-full max-w-[340px] sm:max-w-[720px]">
+    <div className="my-12 flex justify-start  w-full h-[250px] sm:h-[520px]">
+      <div className="relative w-full max-w-[340px] sm:max-w-[720px] pl-12">
         <iframe
           id="player"
           src={`https://74.svetacdn.in/DRQQUUcW0qvr?${id}`} //imdb_id=${movie.imdb_id}
@@ -56,11 +56,11 @@ const Player = ({
           allowFullScreen
         />
       </div>
-      <button onClick={() => changeTime()}>Time</button>
+      {/* <button onClick={() => changeTime()}>Time</button>
       <button onClick={() => changeVolume()}>Volume</button>
       <button onClick={() => changePlay()}>Play</button>
       <button onClick={() => changePause()}>Stop</button>
-      <button onClick={() => changePause()}>Stop</button>
+      <button onClick={() => changePause()}>Stop</button> */}
     </div>
   );
 };

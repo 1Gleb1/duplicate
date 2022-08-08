@@ -4,7 +4,7 @@ import Player from "./Player";
 const Room = (movie) => {
   return;
   <div className=" ">
-    <div className="bg-blue-700 w-[1200px] h-[600px]">
+    <div className="bg-blue-700 w-[1000px] h-[600px]">
       <Player />
       <div className="">
         {/* <iframe

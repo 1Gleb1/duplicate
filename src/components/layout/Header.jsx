@@ -24,13 +24,13 @@ const Header = () => {
       <div className="bg-black">
         <div className="flex justify-between items-center bg-[#0e1921] h-[40px] p-1 px-8 w-[1000px] mx-auto">
           <div className="w-48"></div>
-          <div>
+          <div className="w-48 text-center">
             <Link to={"/"}>
               <div className="text-2xl text-white">Movies-Together</div>
             </Link>
           </div>
 
-          <div>
+          <div className="w-48 text-right">
             <Link to={"/user"}>
               <a className="hover:underline text-white">
                 User({auth.currentUser && auth.currentUser.email})
