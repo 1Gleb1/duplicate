@@ -74,20 +74,20 @@ const Main = () => {
       </div> */}
       <div className="flex justify-between items-center w-full bg-[#0e1921] h-[38px]">
         <div className="flex gap-1">
-          <div className="bg-[#3a5162] h-9 w-56 text-center text-white">
-            <button onClick={() => handleTypeAndItems(movieItems)}>
+          <button onClick={() => handleTypeAndItems(movieItems)}>
+            <div className="bg-[#3a5162] h-9 w-56 text-center text-white">
               <div className="px-3 py-2 text-base rounded-full hover:scale-[1.05]">
                 MOVIE
               </div>
-            </button>
-          </div>
-          <div className="bg-[#3a5162] h-9 w-56 text-center text-white">
-            <button onClick={() => handleTypeAndItems(!movieItems)}>
+            </div>
+          </button>
+          <button onClick={() => handleTypeAndItems(!movieItems)}>
+            <div className="bg-[#3a5162] h-9 w-56 text-center text-white">
               <div className="px-3 py-2 text-base rounded-full hover:scale-[1.05]">
                 SERIES
               </div>
-            </button>
-          </div>
+            </div>
+          </button>
         </div>
         <div className=" pr-2">
           <Search setListSer={setListSer} setMovieItems={setMovieItems} />
