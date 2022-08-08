@@ -51,7 +51,7 @@ const Pagination = ({ listSer, pageEx, setPageEx, handleTypeAndItems }) => {
               e.target.value ? handlePage(e.target.value) : handlePage(pageEx)
             }
             // className="text-white w-12 bg-slate-900 text-center "
-            className="input input-ghost w-12"
+            className="input w-12"
           />
           {/* <button onClick={() => handlePage(500)}>{500}</button> */}
           <button onClick={() => nextPage()} className="btn">

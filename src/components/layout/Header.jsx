@@ -22,28 +22,42 @@ const Header = () => {
       <div className="h-64 bg-black"></div>
 
       <div className="bg-black">
-        <div className="flex justify-between items-center bg-pink-900 h-[60px] p-1 px-8 w-[1200px] mx-auto">
-          <div></div>
-          <Link to={"/"}>
-            <div className="text-3xl">НАЗВАНИЕ</div>
-          </Link>
-          <div>account</div>
+        <div className="flex justify-between items-center bg-[#0e1921] h-[40px] p-1 px-8 w-[1000px] mx-auto">
+          <div className="w-48"></div>
+          <div>
+            <Link to={"/"}>
+              <div className="text-2xl text-white">Movies-Together</div>
+            </Link>
+          </div>
+
+          <div>
+            <Link to={"/user"}>
+              <a className="hover:underline text-white">
+                User({auth.currentUser && auth.currentUser.email})
+              </a>
+            </Link>
+            {auth.currentUser != null && (
+              <button onClick={handleLogOut} className="text-white">
+                Logout
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
     // <div className="w-full text-white bg-gray-800">
     //   <div className="flex justify-between max-w-2xl w-full m-auto">
     //     <Link to={"/"}>Logo</Link>
-    //     <div>
-    //       <Link to={"/user"}>
-    //         <a className="hover:underline">
-    //           User({auth.currentUser && auth.currentUser.email})
-    //         </a>
-    //       </Link>
-    //       {auth.currentUser != null && (
-    //         <button onClick={handleLogOut}>Logout</button>
-    //       )}
-    //     </div>
+    // <div>
+    //   <Link to={"/user"}>
+    //     <a className="hover:underline">
+    //       User({auth.currentUser && auth.currentUser.email})
+    //     </a>
+    //   </Link>
+    //   {auth.currentUser != null && (
+    //     <button onClick={handleLogOut}>Logout</button>
+    //   )}
+    // </div>
     //     {/* <Navigation /> */}
     //   </div>
     // </div>

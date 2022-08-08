@@ -46,7 +46,7 @@ const Player = ({
   };
 
   return (
-    <div className="my-12 flex justify-center bg-gray-700  w-full h-[250px] sm:h-[520px]">
+    <div className="my-12 flex justify-center  w-full h-[250px] sm:h-[520px]">
       <div className="relative w-full max-w-[340px] sm:max-w-[720px]">
         <iframe
           id="player"
@@ -59,6 +59,7 @@ const Player = ({
       <button onClick={() => changeTime()}>Time</button>
       <button onClick={() => changeVolume()}>Volume</button>
       <button onClick={() => changePlay()}>Play</button>
+      <button onClick={() => changePause()}>Stop</button>
       <button onClick={() => changePause()}>Stop</button>
     </div>
   );

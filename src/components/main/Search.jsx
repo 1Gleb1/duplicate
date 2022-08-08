@@ -28,20 +28,23 @@ const Search = ({ setListSer }) => {
   };
 
   return (
-    <div className="">
-      <div className="form-control">
+    <div className="relative w-52 h-8">
+      <div className="absolute w-56 h-[34px] top-0 -left-2 z-0 bg-[#3a5162]"></div>
+      <div className="form-control absolute top-1 left-0 z-50">
         <form className="input-group" onSubmit={(e) => enterEvent(e, keyword)}>
           <input
             type="text"
             placeholder="Search..."
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
-            className="input input-border h-9"
+            className="bg-[#728899] placeholder-black h-6 text-black"
           />
-          <button className="btn btn-sm h-9">
-            {/* //btn btn-square */}
-            <AiOutlineSearch className="text-xl" />
-          </button>
+          <div className="bg-[#0e1921]">
+            <button className="btn btn-xs h-4">
+              {/* //btn btn-square */}
+              <AiOutlineSearch className="text-sm" />
+            </button>
+          </div>
         </form>
       </div>
     </div>

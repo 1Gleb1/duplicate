@@ -69,7 +69,7 @@ const Poster = ({ movie, index }) => {
               <p className={`text-sm leading-[1.05] pt-6 `}>
                 {movie.overview.length <= 260
                   ? movie.overview
-                  : `${movie.overview.substring(0, 250)}...`}
+                  : `${movie.overview.substring(0, 100)}...`}
               </p>
               {movie.vote_average === 0 && (
                 <div className="text-xl uppercase text-rose-900 bg-error mt-2 py-2 font-bold rounded-lg">
@@ -78,7 +78,7 @@ const Poster = ({ movie, index }) => {
               )}
             </span>
           </motion.span>
-          <img src={imgW500} className="object-cover w-44 h-[260px]" />
+          <img src={imgW500} className="object-cover w-36" />
         </div>
       </motion.div>
     </motion.div>

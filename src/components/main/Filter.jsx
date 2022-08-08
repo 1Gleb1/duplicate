@@ -155,8 +155,8 @@ const Filter = ({
   };
 
   return (
-    <div className="w-[800px] p-4">
-      <div className="grid grid-cols-5 gap-2 ">
+    <div className="w-[800px]">
+      <div className="grid grid-cols-5 gap-2">
         {genres.map((item, index) => (
           <div key={index} className=" text-base px-12">
             <button

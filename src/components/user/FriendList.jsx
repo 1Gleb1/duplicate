@@ -163,7 +163,7 @@ const FriendList = () => {
           <span>FrienList</span>
         </button>
       </div>
-      <div className=" w-[600px] h-[600px] overflow-auto bg-gray-500  p-2 rounded-lg flex flex-col  gap-1 ">
+      <div className=" w-[500px] h-[600px] overflow-auto bg-gray-500  p-2 rounded-lg flex flex-col  gap-1 ">
         {arrayUsers.map((user, index) => (
           <div
             key={index}

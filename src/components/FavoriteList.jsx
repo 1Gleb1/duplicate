@@ -35,7 +35,7 @@ const FavoriteList = ({ handleAdd, uid }) => {
   return (
     <div>
       <div className="dropdown">
-        <label tabindex="0" className="bg-gray-800 px-4 py-3 rounded-lg">
+        <label tabindex="0" className="bg-[#3a5162] px-4 py-3 rounded-lg">
           {/* <AiOutlinePlusCircle className="text-4xl" /> */}
           Add Playlist
         </label>

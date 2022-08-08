@@ -65,7 +65,7 @@ const CastomHero = ({
                       16
                     )}/movie_${movieID}_${movieTitle}`}
                   >
-                    <a className="bg-gray-800 px-4 py-3 rounded-lg">
+                    <a className="bg-[#3a5162] px-4 py-3 rounded-lg">
                       Create room
                     </a>
                   </Link>

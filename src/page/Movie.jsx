@@ -72,7 +72,7 @@ const Movie = () => {
 
   console.log(movie);
   return (
-    <div className="w-[1200px] mx-auto bg-gray-700 min-h-sreen flex flex-col justify-center items-center">
+    <div className="w-[1000px] mx-auto bg-[#0f2c41] min-h-sreen flex flex-col justify-center items-center">
       {/* <Hero
         auth={auth}
         uid={uid}
@@ -109,64 +109,76 @@ const Movie = () => {
         originalName={movie.original_name}
       />
 
-      <div className=" w-[800px] flex flex-col items-start gap-1 flex-wrap pt-8 mb-8">
-        <span className="text-xl"> Collection:</span>
-        {collectionMovie &&
-          collectionMovie.map((movie, index) => (
-            <Link
-              key={index}
-              to={
-                movie.vote_average > 0
-                  ? `/movie/movie_${movie.id}_${movie.title}`
-                  : ""
-              }
-            >
-              <div className="hover:underline">{movie.original_title}</div>
-              {/* {<Poster movie={movie} />} */}
-            </Link>
-          ))}
+      <div>
+        {collectionMovie.length && (
+          <div className=" w-[1000px] ">
+            <div className="pl-14 w-[900px] flex flex-col items-start gap-1 flex-wrap pt-8 mb-8">
+              <span className="text-3xl mb-4"> Collection:</span>
+              {collectionMovie &&
+                collectionMovie.map((movie, index) => (
+                  <Link
+                    key={index}
+                    to={
+                      movie.vote_average > 0
+                        ? `/movie/movie_${movie.id}_${movie.title}`
+                        : ""
+                    }
+                  >
+                    <div className="hover:underline">
+                      {movie.original_title}
+                    </div>
+                    {/* {<Poster movie={movie} />} */}
+                  </Link>
+                ))}
+            </div>
+            <div className="h-20 w-[1000px] bg-[#1c405a]" />
+            <div className="pl-14 w-[900px] flex flex-col flex-wrap pt-8 mb-8">
+              <span className="text-3xl mb-4"> Related:</span>
+              <div className="flex gap-6 mb-4">
+                {collectionMovie &&
+                  collectionMovie.map((movie, index) => (
+                    <Link
+                      className="w-36"
+                      key={index}
+                      to={
+                        movie.vote_average > 0
+                          ? `/movie/movie_${movie.id}_${movie.title}`
+                          : ""
+                      }
+                    >
+                      {<Poster movie={movie} />}
+                    </Link>
+                  ))}
+              </div>
+            </div>
+            <div className="h-20 w-[1000px] bg-[#1c405a]" />
+          </div>
+        )}
       </div>
-      <div className="h-16 w-[1200px] bg-blue-900" />
-      <div className=" w-[800px] flex flex-col flex-wrap pt-8 mb-8">
-        <span className="text-xl"> Related:</span>
-        <div className="flex gap-6">
-          {collectionMovie &&
-            collectionMovie.map((movie, index) => (
-              <Link
-                key={index}
-                to={
-                  movie.vote_average > 0
-                    ? `/movie/movie_${movie.id}_${movie.title}`
-                    : ""
-                }
-              >
-                {<Poster movie={movie} />}
-              </Link>
-            ))}
-        </div>
-      </div>
-      <div className="h-16 w-[1200px] bg-blue-900" />
-      <div className="w-[800px] my-12">
+
+      <div className="w-[900px] my-12">
         <div className="flex flex-col gap-6">
-          <span className="text-4xl">Comments:</span>
+          <span className="text-3xl">Comments:</span>
           <div>
             <form action="" className="flex">
-              <input type="text" className="py-2 w-full bg-gray-500" />
-              <button className="p-4 bg-blue-900 rounded-r-lg">
+              <input
+                type="text"
+                className="py-2 w-full bg-[#728899] px-3 text-black rounded-l-lg"
+              />
+              <button className="p-4 bg-[#1c405a] rounded-r-lg">
                 <GrSend className="text-slate-300 text-lg " color="white" />
               </button>
             </form>
           </div>
           <div>
-            comments...
-            <div className="bg-gray-900 p-3 flex">
-              <div class="avatar placeholder">
-                <div class="bg-neutral-focus text-neutral-content rounded-full w-16 h-16 ">
+            <div className="bg-[#1b374c] p-3 flex rounded-md ">
+              <div class="avatar placeholder ">
+                <div class="bg-[#0d2232] text-neutral-content border-2 rounded-full w-16 h-16 ">
                   <span class="text-lg">K</span>
                 </div>
               </div>
               <div className="flex flex-col ml-6">
-                <div>Kilerr</div>
+                <div className="text-[#76a8ce] text-xl">Kilerr</div>
                 <div className="">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                   Quis, fugit repellendus magni necessitatibus quibusdam a
