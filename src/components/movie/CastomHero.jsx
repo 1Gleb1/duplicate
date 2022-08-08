@@ -14,6 +14,7 @@ const CastomHero = ({
   movieDuration,
   overview,
   movieID,
+  movieName,
   originTitle,
   handleAdd,
 }) => {
@@ -29,7 +30,7 @@ const CastomHero = ({
     <div>
       <div className="w-[1200px] px-36 py-6">
         <span className="flex items-center gap-8 font-black text-sm sm:text-4xl py-4 ">
-          {movieTitle}
+          {movieTitle ? movieTitle : movieName}
         </span>
         <div className="flex gap-6 items-center">
           <div className="flex flex-col items-start">

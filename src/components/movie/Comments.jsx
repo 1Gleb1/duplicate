@@ -53,7 +53,9 @@ const Comments = ({ imdbID }) => {
       unsub();
     };
   };
+
   console.log(comments);
+
   useEffect(() => {
     getComments();
   }, []);

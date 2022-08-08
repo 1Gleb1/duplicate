@@ -11,6 +11,7 @@ import Player from "../components/movie/Player";
 import Hero from "../components/movie/Hero";
 import CastomHero from "../components/movie/CastomHero";
 import Comments from "../components/movie/Comments";
+import LikeDis from "../components/movie/LikeDis";
 
 const Movie = () => {
   const [collectionMovie, setCollectionMovie] = useState([]);
@@ -97,6 +98,7 @@ const Movie = () => {
         movieDuration={movie.runtime}
         overview={movie.overview}
         movieID={movie.id}
+        movieName={movie.name}
         originalTitle={movie.original_title}
         handleAdd={handleAdd}
       />
@@ -109,6 +111,7 @@ const Movie = () => {
         originalLanguage={movie.original_language}
         originalName={movie.original_name}
       />
+      <LikeDis imdbID={imdbId} />
 
       <div>
         {collectionMovie.length && (
