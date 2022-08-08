@@ -88,13 +88,6 @@ const Main = () => {
               </div>
             </button>
           </div>
-          {/* <div className="bg-purple-500 h-12 w-64 text-center text-black">
-            <button onClick={() => handleTypeAndItems(!movieItems)}>
-              <div className="px-3 py-2 text-xl rounded-full hover:scale-[1.05]">
-                Cartoon
-              </div>
-            </button>
-          </div> */}
         </div>
         <div className=" pr-2">
           <Search setListSer={setListSer} setMovieItems={setMovieItems} />

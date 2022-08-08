@@ -10,6 +10,7 @@ import { getAuth } from "firebase/auth";
 import Player from "../components/movie/Player";
 import Hero from "../components/movie/Hero";
 import CastomHero from "../components/movie/CastomHero";
+import Comments from "../components/movie/Comments";
 
 const Movie = () => {
   const [collectionMovie, setCollectionMovie] = useState([]);
@@ -159,36 +160,7 @@ const Movie = () => {
       <div className="w-[900px] my-12">
         <div className="flex flex-col gap-6">
           <span className="text-3xl">Comments:</span>
-          <div>
-            <form action="" className="flex">
-              <input
-                type="text"
-                className="py-2 w-full bg-[#728899] px-3 text-black rounded-l-lg"
-              />
-              <button className="p-4 bg-[#1c405a] rounded-r-lg">
-                <GrSend className="text-slate-300 text-lg " color="white" />
-              </button>
-            </form>
-          </div>
-          <div>
-            <div className="bg-[#1b374c] p-3 flex rounded-md ">
-              <div class="avatar placeholder ">
-                <div class="bg-[#0d2232] text-neutral-content border-2 rounded-full w-16 h-16 ">
-                  <span class="text-lg">K</span>
-                </div>
-              </div>
-              <div className="flex flex-col ml-6">
-                <div className="text-[#76a8ce] text-xl">Kilerr</div>
-                <div className="">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Quis, fugit repellendus magni necessitatibus quibusdam a
-                  repellat ad eum, molestias optio fugiat cupiditate unde!
-                  Delectus doloribus necessitatibus obcaecati repudiandae illo
-                  quasi!
-                </div>
-              </div>
-            </div>
-          </div>
+          <Comments imdbID={movie.imdb_id} />
         </div>
       </div>
     </div>
