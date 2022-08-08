@@ -48,9 +48,11 @@ const CastomHero = ({
                       </div>
                     ))}
                 </div>
-                <div className="text-xl font-bold">
-                  Duration: {movieDuration} min
-                </div>
+                {movieTitle && (
+                  <div className="text-xl font-bold">
+                    Duration: {movieDuration} min
+                  </div>
+                )}
                 <span className="text-sm sm:text-2xl max-w-3xl">
                   {overview}
                 </span>
