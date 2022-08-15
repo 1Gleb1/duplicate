@@ -24,29 +24,24 @@ const Wishlist = ({ uid }) => {
   // };
 
   const getNamesPlaylists = async () => {
-    const queryPlaylist = doc(firestore, "favorite", uid);
-    const docPlaylist = await getDoc(queryPlaylist);
-    console.log(docPlaylist);
-    const unsubscribePlaylist = onSnapshot(queryPlaylist, (querySnapshot) => {
-      let arrName = [];
-      // querySnapshot.forEach((doc) => {
-      //   console.log(doc.id);
-      //   arrName.push(doc.id);
-      // });
-      console.log(querySnapshot);
-      setPlaylistName(arrName);
+    const docPlaylist = doc(
+      firestore,
+      "favorite",
+      "99BnqKaocoP42kJmKo6HJju4kUu1"
+    );
+    const getDocPlaylist = await getDoc(docPlaylist);
+    console.log(getDocPlaylist.data());
+  };
+
+  const getWhishList = async () => {
+    const docRef = await getDocs(
+      collection(firestore, "favorite", "99BnqKaocoP42kJmKo6HJju4kUu1", "new")
+    );
+    docRef.forEach((doc) => {
+      console.log(doc.data());
     });
   };
 
-  let unsub;
-  const getWhishList = () => {
-    const docRef = collection(firestore, "favorite", uid, "second");
-    unsub = onSnapshot(docRef, (snapshot) => {
-      snapshot.forEach((doc) => {
-        console.log(doc);
-      });
-    });
-  };
   useEffect(() => {
     getNamesPlaylists();
     // getWhishList();

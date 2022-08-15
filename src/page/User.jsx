@@ -58,6 +58,7 @@ const User = () => {
           <div>
             <div className="mx-auto mt-8 h-56 w-[900px] bg-[#3a5162]">
               <div>
+                <Wishlist />
                 <div className="flex gap-2 px-8 py-2">
                   <span>playlist</span>
                   <span>playlist</span>

@@ -24,7 +24,7 @@ const Comments = ({ imdbID }) => {
   const sendComment = async (e, msg) => {
     e.preventDefault();
 
-    if (msg.length === 0) {
+    if (msg.length == 0) {
       return;
     } else {
       await addDoc(collection(firestore, `comment/${imdbID}/comments`), {
@@ -39,7 +39,7 @@ const Comments = ({ imdbID }) => {
 
   const getComments = () => {
     const chatsDocRef = collection(firestore, `comment/${imdbID}/comments`);
-    const chatsQuery = query(chatsDocRef); // orderBy("createOn", "asc")
+    const chatsQuery = query(chatsDocRef, orderBy("createOn", "desc")); // orderBy("createOn", "asc")
 
     const unsub = onSnapshot(chatsQuery, (snapshot) => {
       let msg = [];
@@ -49,21 +49,20 @@ const Comments = ({ imdbID }) => {
       setComments(msg);
     });
 
-    return () => {
-      unsub();
-    };
+    console.log(comments);
+    // return () => {
+    //   unsub();
+    // };
   };
-
-  console.log(comments);
 
   useEffect(() => {
     getComments();
-  }, []);
+  }, [comments]);
 
   return (
     <div>
       <div className="pb-12">
-        <form action="" className="flex">
+        <form className="flex">
           <input
             type="text"
             value={newComment}
@@ -81,9 +80,9 @@ const Comments = ({ imdbID }) => {
       <div className="flex flex-col gap-4">
         {comments.map((doc) => (
           <div className="bg-[#1b374c] p-3 flex rounded-md">
-            <div class="avatar placeholder ">
-              <div class="bg-[#0d2232] text-neutral-content border-2 rounded-full w-12 h-12 ">
-                <span class="text-lg">{doc.name[0]}</span>
+            <div className="avatar placeholder ">
+              <div className="bg-[#0d2232] text-neutral-content border-2 rounded-full w-12 h-12 ">
+                <span className="text-lg">{doc.name[0]}</span>
               </div>
             </div>
             <div className="flex flex-col ml-6">

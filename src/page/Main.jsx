@@ -195,7 +195,7 @@ const Main = () => {
             {!listSer.results && (
               <ListContent
                 itemContent={itemContent}
-                typeContent={typeContent}
+                typeContent={typeContent} // в зависимости от типа будут создаваться ссылки или фильм или сериал
               />
             )}
           </div>
