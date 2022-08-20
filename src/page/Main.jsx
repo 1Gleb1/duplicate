@@ -15,7 +15,7 @@ import "swiper/css/navigation";
 
 const Main = () => {
   const [activeGenre, setActiveGenre] = useState([]);
-  const [listSer, setListSer] = useState({});
+  const [listSerch, setListSerch] = useState({});
   const [movieItems, setMovieItems] = useState([]);
   const [pageEx, setPageEx] = useState(1);
   const [popularList, setPopularList] = useState([]);
@@ -43,35 +43,30 @@ const Main = () => {
     const getMoviesWithGeter = async () => {
       const params = { page: pageEx };
       const popular = { page: 1 };
-      try {
-        const response = await tmdbApi.getMovieByCategory(activeGenre, {
-          params,
-        });
-        const result = await tmdbApi.getMovieByCategory({ popular });
-        const tvPopular = await tmdbApi.getTvPopular(pageEx);
-        setMovieItems(response.results);
-        setPopularList(result.results);
-        setTvPopularList(tvPopular.results); // СЕРИАЛЫ ТУТ
-      } catch {
-        console.log("error");
-      }
+
+      const response = await tmdbApi.getMovieByCategory(activeGenre, {
+        params,
+      });
+      const result = await tmdbApi.getMovieByCategory({ popular });
+      const tvPopular = await tmdbApi.getTvPopular(pageEx); // СЕРИАЛЫ ТУТ
+      setMovieItems(response.results);
+      setPopularList(result.results);
+      setTvPopularList(tvPopular.results); // СЕРИАЛЫ ТУТ
+      ////////////////////////////  ИЗНАЧАЛЬНОЕ ЗАПОЛНЕНИЕ СТАЛО РЕШЕНИЕМ, НО ЧЕРЕЗ ФУНКЦИЮ В КОТОРУЮ ЗАНЕСЕНЫ ЭТИ ДВА ДЕЙСТВИЯ ЭТО НЕ ВЫХОДИЛО, НО ТУТ ДАННЫЕ ПЕРЕДАЮТСЯ НАПРЯМУЮ
+      setItemContent(response.results);
+      setTypeContent("movie");
+      console.log(itemContent);
+      ////////////////////////////
     };
     getMoviesWithGeter();
-  }, [activeGenre, pageEx, listSer]);
+  }, [activeGenre, pageEx, listSerch, setItemContent]);
 
   const handleHome = () => {
-    setListSer({});
+    setListSerch({});
   };
 
   return (
     <div className="min-w-[300px] max-w-[1000px] mx-auto w-full min-h-screen">
-      {/* <div className="h-64"></div>
-
-      <div className="flex justify-between items-center w-full bg-pink-900 h-[60px] p-1 px-8">
-        <div></div>
-        <div className="text-3xl">НАЗВАНИЕ</div>
-        <div>account</div>
-      </div> */}
       <div className="flex justify-between items-center w-full bg-[#0e1921] h-[38px]">
         <div className="flex gap-1">
           <button onClick={() => handleTypeAndItems(movieItems)}>
@@ -90,7 +85,7 @@ const Main = () => {
           </button>
         </div>
         <div className=" pr-2">
-          <Search setListSer={setListSer} setMovieItems={setMovieItems} />
+          <Search setListSer={setListSerch} setMovieItems={setMovieItems} />
         </div>
       </div>
 
@@ -99,7 +94,6 @@ const Main = () => {
         <div className="flex justify-center">
           <div className="relative w-[900px]">
             <Swiper
-              // className="relative rounded-xl w-full h-full flex max-w-5xl"\
               cssMode={true}
               spaceBetween={25}
               slidesPerView={5.8}
@@ -110,17 +104,6 @@ const Main = () => {
               className="py-12"
             >
               {popularList.map((item, index) => (
-                // <SwiperSlide key={index}>
-
-                //   <Link  to={`/movie/movie_${item.id}_${item.title}`}>
-                // <img
-                //   src={imageCollection[index]}
-                //   className="object-cover rounded-xl overflow-hidden relative top-0 "
-                //   alt={item.title}
-                // />
-                //     <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-transparent via-transparent to-[#111827D9]" />
-                //   </Link>
-                // </SwiperSlide>
                 <SwiperSlide className="py-4" key={index}>
                   <Link to={`/movie/movie_${item.id}_${item.title}`}>
                     <Poster movie={item} />
@@ -141,25 +124,10 @@ const Main = () => {
           </div>
         </div>
 
-        {/* <div className="max-w-xl m-auto py-4 ">
-          <div className="flex justify-between">
-            <button onClick={() => handleTypeAndItems(movieItems)}>
-              <div className="px-3 py-2 bg-gray-600 rounded-full hover:scale-[1.05]">
-                MOVIE
-              </div>
-            </button>
-            <button onClick={() => handleTypeAndItems(!movieItems)}>
-              <div className="px-3 py-2 bg-gray-600 rounded-full hover:scale-[1.05]">
-                SERIES/TVshows/ANIME
-              </div>
-            </button>
-          </div>
-        </div> */}
-
         <div className="flex justify-between items-center w-full bg-[#0e1921] mt-16 relative ">
           <div className="py-2">
             <div className="absolute -top-12 left-16 text-2xl">Category</div>
-            {!listSer.resultsS && (
+            {!listSerch.resultsS && (
               <div className="">
                 <Filter
                   setPageEx={setPageEx}
@@ -177,8 +145,8 @@ const Main = () => {
         <div className="m-auto pt-6 px-6 rounded-lg max-w-[1100px]">
           <div className="flex flex-wrap gap-8 justify-center py-8">
             {/* For Serch List */}
-            {listSer.results &&
-              listSer.results.map((movie, index) => (
+            {listSerch.results &&
+              listSerch.results.map((movie, index) => (
                 <div key={index}>
                   {movie && (
                     <Link
@@ -192,7 +160,7 @@ const Main = () => {
                 </div>
               ))}
             {/* For All List */}
-            {!listSer.results && (
+            {!listSerch.results && (
               <ListContent
                 itemContent={itemContent}
                 typeContent={typeContent} // в зависимости от типа будут создаваться ссылки или фильм или сериал
@@ -203,7 +171,7 @@ const Main = () => {
         {typeContent && (
           <div className="pt-8 pb-12 max-w-2xl m-auto">
             <Pagination
-              listSer={listSer}
+              listSer={listSerch}
               pageEx={pageEx}
               setPageEx={setPageEx}
               handleTypeAndItems={handleTypeAndItems}

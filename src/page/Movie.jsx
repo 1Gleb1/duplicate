@@ -5,7 +5,7 @@ import apiConfig from "../api/apiConfig";
 import tmdbApi from "../api/tmdbApi";
 import Poster from "../components/Poster";
 import { firestore } from "../firebase/clientApp";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import Player from "../components/movie/Player";
 import Hero from "../components/movie/Hero";
@@ -30,18 +30,17 @@ const Movie = () => {
 
   const handleAdd = async (titlePlayList) => {
     if (titlePlayList.length) {
-      const newItem = { ...movie };
-      // const docRef = doc(firestore, `favorite/${uid}`);
-      const docFullRef = collection(
+      const newItem = { ...movie, titlePlayList };
+      const docRef = doc(firestore, `favorite/${uid}`);
+      const docFullRef = collection(firestore, "favorite", uid, titlePlayList);
+      const docNamePlaylist = collection(
         firestore,
         "favorite",
         uid,
-        "nameList",
-        titlePlayList,
-        "playList"
+        "nameList"
       );
-      // await setDoc(docRef, authItem);
       await addDoc(docFullRef, newItem);
+      await addDoc(docNamePlaylist, { titlePlayList });
     } else {
       console.log("ПУСТО");
     }
@@ -75,19 +74,6 @@ const Movie = () => {
   console.log(movie);
   return (
     <div className="w-[1000px] mx-auto bg-[#0f2c41] min-h-sreen flex flex-col justify-center items-center">
-      {/* <Hero
-        auth={auth}
-        uid={uid}
-        image={image}
-        imgW500={imgW500}
-        movieTitle={movie.title}
-        genres={genres}
-        movieDuration={movie.runtime}
-        overview={movie.overview}
-        movieID={movie.id}
-        originalTitle={movie.original_title}
-        handleAdd={handleAdd}
-      /> */}
       <CastomHero
         auth={auth}
         uid={uid}
@@ -107,7 +93,6 @@ const Movie = () => {
         title={movie.name}
         typeContent={typeContent}
         // title={movie.original_name}
-
         originalLanguage={movie.original_language}
         originalName={movie.original_name}
       />

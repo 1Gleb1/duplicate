@@ -35,15 +35,44 @@ const CastomHero = ({
         <div className="flex gap-6 items-center">
           <div className="flex flex-col items-start">
             <div className="flex gap-8">
-              <div className={`w-[250px] rounded-2xl overflow-hidden `}>
-                <img src={imgW500} alt={movieTitle} />
+              <div className="flex flex-col gap-2">
+                <div className={` `}>
+                  <div className="w-[200px] rounded-2xl overflow-hidden">
+                    <img src={imgW500} alt={movieTitle} />
+                  </div>
+                  <div className="flex gap-4 items-center">
+                    {isUser ? (
+                      <div className="flex flex-col items-start pt-2 gap-7 mt-4">
+                        <FavoriteList handleAdd={handleAdd} uid={uid} />
+
+                        <Link
+                          to={`/room/${(+new Date()).toString(
+                            16
+                          )}/movie_${movieID}_${movieTitle}`}
+                        >
+                          <a className="bg-[#3a5162] px-4 py-3 rounded-lg">
+                            Create room
+                          </a>
+                        </Link>
+                      </div>
+                    ) : (
+                      <div>
+                        <Link to="/user">
+                          <div className="p-2 text-lg italic hover:underline">
+                            Sign in for add film in wishlist
+                          </div>
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
               <div className=" flex flex-col text-white leading-none">
                 <div className="flex py-2 gap-2 text-xl">
                   Genres:
                   {genres &&
                     genres.map((genre, index) => (
-                      <div key={index} className="text-xl">
+                      <div key={index} className="text-lg">
                         | {genre.name}
                       </div>
                     ))}
@@ -57,31 +86,6 @@ const CastomHero = ({
                   {overview}
                 </span>
               </div>
-            </div>
-            <div className="flex gap-4 items-center">
-              {isUser ? (
-                <div className="flex flex-col items-start pt-2 gap-7 mt-4">
-                  <FavoriteList handleAdd={handleAdd} uid={uid} />
-
-                  <Link
-                    to={`/room/${(+new Date()).toString(
-                      16
-                    )}/movie_${movieID}_${movieTitle}`}
-                  >
-                    <a className="bg-[#3a5162] px-4 py-3 rounded-lg">
-                      Create room
-                    </a>
-                  </Link>
-                </div>
-              ) : (
-                <div>
-                  <Link to="/user">
-                    <div className="p-2 text-lg italic hover:underline">
-                      Sign in for add film in wishlist
-                    </div>
-                  </Link>
-                </div>
-              )}
             </div>
           </div>
         </div>

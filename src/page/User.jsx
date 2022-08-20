@@ -58,8 +58,10 @@ const User = () => {
           <div>
             <div className="mx-auto mt-8 h-56 w-[900px] bg-[#3a5162]">
               <div>
-                <Wishlist />
-                <div className="flex gap-2 px-8 py-2">
+                <div className="border-2 border-red-800">
+                  <Wishlist uid={uid} />
+                </div>
+                {/* <div className="flex gap-2 px-8 py-2">
                   <span>playlist</span>
                   <span>playlist</span>
                   <span>playlist</span>
@@ -73,7 +75,7 @@ const User = () => {
                   <div className="h-36 w-24 bg-white"></div>
                   <div className="h-36 w-24 bg-white"></div>
                   <div className="h-36 w-24 bg-white"></div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

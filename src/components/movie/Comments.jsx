@@ -42,11 +42,11 @@ const Comments = ({ imdbID }) => {
     const chatsQuery = query(chatsDocRef, orderBy("createOn", "desc")); // orderBy("createOn", "asc")
 
     const unsub = onSnapshot(chatsQuery, (snapshot) => {
-      let msg = [];
-      snapshot.forEach((doc) => {
-        msg.push(doc.data());
+      let commentsArray = [];
+      snapshot.forEach((comment) => {
+        commentsArray.push(comment.data());
       });
-      setComments(msg);
+      setComments(comments);
     });
 
     console.log(comments);

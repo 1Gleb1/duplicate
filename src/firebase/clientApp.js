@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getDatabase } from "firebase/database";
 
-initializeApp({
+const firebaseConfig = initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
   databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
@@ -11,6 +12,7 @@ initializeApp({
   appId: process.env.REACT_APP_FIREBASE_ID,
 });
 
-const firestore = getFirestore();
+const firestore = getFirestore(firebaseConfig);
+const database = getDatabase(firebaseConfig);
 
-export { firestore };
+export { firestore, database };

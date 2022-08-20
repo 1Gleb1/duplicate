@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Poster from "../Poster";
 
 const ListContent = ({ itemContent, typeContent }) => {
-  console.log(typeContent);
   return (
     <div className="flex flex-wrap gap-8 justify-center my-2">
       {itemContent.map((movie, index) => (
@@ -20,7 +19,7 @@ const ListContent = ({ itemContent, typeContent }) => {
         >
           {movie.poster_path && (
             <AnimatePresence exitBeforeEnter={true}>
-              <Poster movie={movie} key={movie.title} index={index} />
+              <Poster movie={movie} index={index} key={movie.title} />
             </AnimatePresence>
           )}
         </Link>
