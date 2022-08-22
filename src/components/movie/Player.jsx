@@ -9,31 +9,41 @@ const Player = ({
   title,
   typeContent,
   originalName,
+  mediaID,
+  genres,
 }) => {
   let id;
   const [ruTitle, setRuTitle] = useState();
+  const [isAnimation, setIsAnimation] = useState(false);
+
+  const isAnimationGenre = () => {
+    genres &&
+      genres.forEach((genre) => {
+        if (genre.name == "Animation") {
+          setIsAnimation(true);
+        }
+      });
+  };
   if (typeContent === "tv") {
-    // if (title === "Adventure Time") {
-    //   id = `name=время+приключений`;
-    // } else {
+    //
     if (originalLanguage == "ru") {
       id = `name=${originalName}`;
     } else {
-      id = `name_eng=${title}`;
+      if (isAnimation) {
+        id = `name=${ruTitle}`;
+      } else {
+        id = `name_eng=${title}`;
+      }
     }
-    // }
   } else {
     id = `imdb_id=${movieURL}`;
   }
-  console.log(ruTitle);
 
-  useEffect(() => {
-    const getRusTitle = async () => {
-      const result = await tmdbApi.getTvTitleBySearch(title);
-      setRuTitle(result);
-    };
-    getRusTitle();
-  }, []);
+  useEffect(async () => {
+    isAnimationGenre();
+    const result = await tmdbApi.getTvTitleByID(mediaID);
+    setRuTitle(result.name);
+  }, [ruTitle]);
 
   // CONTROl
   ///////////////////////////////////////

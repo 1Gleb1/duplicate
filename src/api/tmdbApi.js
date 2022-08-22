@@ -1,8 +1,8 @@
 import apiConfig from "./apiConfig";
 import axiosClient from "./axiosClient";
 
-const ru = "ru-Ru";
-const eng = "en-En";
+const ru = "ru-RU";
+const eng = "en-EN";
 const language = (language) => {
   if (language) {
     return language;
@@ -53,9 +53,12 @@ const tmdbApi = {
   },
 
   // названия на русском для плеера
-  getTvTitleBySearch: (tv) => {
-    const url = `${apiConfig.baseUrl}search/tv?api_key=${apiConfig.apiKey}&language=ru-RU&query=${tv}`;
-    return axiosClient.get(url.title);
+  //////////// FIX THIS
+  getTvTitleByID: (id) => {
+    const url = `${apiConfig.baseUrl}/tv/${id}?api_key=${
+      apiConfig.apiKey
+    }&language=${language(ru)}`;
+    return axiosClient.get(url);
   },
 };
 

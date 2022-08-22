@@ -5,7 +5,7 @@ import apiConfig from "../api/apiConfig";
 import tmdbApi from "../api/tmdbApi";
 import Poster from "../components/Poster";
 import { firestore } from "../firebase/clientApp";
-import { addDoc, collection, doc, getDocs } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import Player from "../components/movie/Player";
 import Hero from "../components/movie/Hero";
@@ -25,22 +25,17 @@ const Movie = () => {
   const imdbId = chank[1];
 
   const auth = getAuth();
-
   const uid = auth.currentUser ? auth.currentUser.uid : "";
 
   const handleAdd = async (titlePlayList) => {
     if (titlePlayList.length) {
-      const newItem = { ...movie, titlePlayList };
-      const docRef = doc(firestore, `favorite/${uid}`);
-      const docFullRef = collection(firestore, "favorite", uid, titlePlayList);
-      const docNamePlaylist = collection(
-        firestore,
-        "favorite",
-        uid,
-        "nameList"
-      );
-      await addDoc(docFullRef, newItem);
-      await addDoc(docNamePlaylist, { titlePlayList });
+      let text = JSON.stringify(movie);
+      const newItem = `{${titlePlayList}}`;
+      const newJSONstringify = JSON.stringify(newItem);
+      const parseNewItem = JSON.parse(newJSONstringify);
+      console.log(parseNewItem);
+      // const docRef = collection(firestore, `favorite/${uid}/playlist`);
+      // await addDoc(docRef, parseNewItem);
     } else {
       console.log("ПУСТО");
     }
@@ -95,6 +90,8 @@ const Movie = () => {
         // title={movie.original_name}
         originalLanguage={movie.original_language}
         originalName={movie.original_name}
+        mediaID={movie.id}
+        genres={genres}
       />
       <LikeDis imdbID={imdbId} />
 
@@ -148,7 +145,7 @@ const Movie = () => {
       <div className="w-[900px] my-12">
         <div className="flex flex-col gap-6">
           <span className="text-3xl">Comments:</span>
-          <Comments imdbID={movie.imdb_id} />
+          <Comments id={movie.id} />
         </div>
       </div>
     </div>

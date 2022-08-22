@@ -67,9 +67,9 @@ const Poster = ({ movie, index }) => {
           >
             <span>
               <p className={`text-sm leading-[1.05] pt-6 `}>
-                {movie.overview.length <= 260
+                {movie.overview.length <= 180
                   ? movie.overview
-                  : `${movie.overview.substring(0, 100)}...`}
+                  : `${movie.overview.substring(0, 120)}...`}
               </p>
               {movie.vote_average === 0 && (
                 <div className="text-xl uppercase text-rose-900 bg-error mt-2 py-2 font-bold rounded-lg">

@@ -13,13 +13,13 @@ import { useState } from "react";
 import { GrSend } from "react-icons/gr";
 import { firestore } from "../../firebase/clientApp";
 
-const Comments = ({ imdbID }) => {
+const Comments = ({ id }) => {
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState([]);
   const auth = getAuth();
   const user = auth.currentUser ? auth : "";
   const userUid = user.uid;
-  console.log(imdbID);
+  console.log(id);
 
   const sendComment = async (e, msg) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ const Comments = ({ imdbID }) => {
     if (msg.length == 0) {
       return;
     } else {
-      await addDoc(collection(firestore, `comment/${imdbID}/comments`), {
+      await addDoc(collection(firestore, `comment/${id}/comments`), {
         createOn: serverTimestamp(),
         uid: userUid ? userUid : "guest",
         comment: msg,
@@ -38,7 +38,7 @@ const Comments = ({ imdbID }) => {
   };
 
   const getComments = () => {
-    const chatsDocRef = collection(firestore, `comment/${imdbID}/comments`);
+    const chatsDocRef = collection(firestore, `comment/${id}/comments`);
     const chatsQuery = query(chatsDocRef, orderBy("createOn", "desc")); // orderBy("createOn", "asc")
 
     const unsub = onSnapshot(chatsQuery, (snapshot) => {
