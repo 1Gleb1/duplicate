@@ -24,7 +24,7 @@ const Player = ({
         }
       });
   };
-  if (typeContent === "tv") {
+  const contentCheck = () => {
     //
     if (originalLanguage == "ru") {
       id = `name=${originalName}`;
@@ -35,6 +35,9 @@ const Player = ({
         id = `name_eng=${title}`;
       }
     }
+  };
+  if (typeContent === "tv") {
+    contentCheck();
   } else {
     id = `imdb_id=${movieURL}`;
   }
@@ -43,7 +46,7 @@ const Player = ({
     isAnimationGenre();
     const result = await tmdbApi.getTvTitleByID(mediaID);
     setRuTitle(result.name);
-  }, [ruTitle]);
+  }, [isAnimationGenre]);
 
   // CONTROl
   ///////////////////////////////////////
