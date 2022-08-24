@@ -67,119 +67,123 @@ const Main = () => {
 
   return (
     <div className="min-w-[300px] max-w-[1000px] mx-auto w-full min-h-screen">
-      <div className="flex justify-between items-center w-full bg-[#0e1921] h-[38px]">
-        <div className="flex gap-1">
-          <button onClick={() => handleTypeAndItems(movieItems)}>
-            <div className="bg-[#3a5162] h-9 w-56 text-center text-white">
-              <div className="px-3 py-2 text-base rounded-full hover:scale-[1.05]">
-                MOVIE
-              </div>
-            </div>
-          </button>
-          <button onClick={() => handleTypeAndItems(!movieItems)}>
-            <div className="bg-[#3a5162] h-9 w-56 text-center text-white">
-              <div className="px-3 py-2 text-base rounded-full hover:scale-[1.05]">
-                SERIES
-              </div>
-            </div>
-          </button>
-        </div>
-        <div className=" pr-2">
-          <Search setListSer={setListSerch} setMovieItems={setMovieItems} />
-        </div>
-      </div>
-
-      <div className=" max-w-[1600] w-full h-full bg-[#0f2c41] mx-auto rounded-sm">
-        <h2 className="text-2xl py-2 ml-16 pt-4">Popular:</h2>
-        <div className="flex justify-center">
-          <div className="relative w-[900px]">
-            <Swiper
-              cssMode={true}
-              spaceBetween={25}
-              slidesPerView={5.8}
-              keyboard={true}
-              mousewheel={true}
-              // navigation={true}
-              modules={[Mousewheel, Keyboard, Navigation]}
-              className="py-12"
-            >
-              {popularList.map((item, index) => (
-                <SwiperSlide className="py-4" key={index}>
-                  <Link to={`/movie/movie_${item.id}_${item.title}`}>
-                    <Poster movie={item} />
-                  </Link>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <div className=" absolute -left-10 top-4">
-              <span className="flex items-center justify-center h-[200px] w-8 bg-[#0e1921]">
-                {"<"}
-              </span>
-            </div>
-            <div className=" absolute -right-10 top-4">
-              <span className="flex items-center justify-center h-[200px] w-8 bg-[#0e1921]">
-                {">"}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex justify-between items-center w-full bg-[#0e1921] mt-16 relative ">
-          <div className="py-2">
-            <div className="absolute -top-12 left-16 text-2xl">Category</div>
-            {!listSerch.resultsS && (
-              <div className="">
-                <Filter
-                  setPageEx={setPageEx}
-                  setActiveGenre={setActiveGenre}
-                  activeGenre={activeGenre}
-                  handleTypeAndItems={handleTypeAndItems}
-                  movieItems={movieItems}
-                  setMovieItems={setMovieItems}
-                />
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className="m-auto pt-6 px-6 rounded-lg max-w-[1100px]">
-          <div className="flex flex-wrap gap-8 justify-center py-8">
-            {/* For Serch List */}
-            {listSerch.results &&
-              listSerch.results.map((movie, index) => (
-                <div key={index}>
-                  {movie && (
-                    <Link
-                      to={`/movie/${movie.title ? "movie" : "tv"}_${movie.id}_${
-                        movie.title ? movie.title : movie.name
-                      }`}
-                    >
-                      {movie.poster_path && <Poster movie={movie} />}
-                    </Link>
-                  )}
+      {movieItems.length && (
+        <div className="flex justify-between items-center w-full bg-[#0e1921] h-[38px]">
+          <div className="flex gap-1">
+            <button onClick={() => handleTypeAndItems(movieItems)}>
+              <div className="bg-[#3a5162] h-9 w-56 text-center text-white">
+                <div className="px-3 py-2 text-base rounded-full hover:scale-[1.05]">
+                  MOVIE
                 </div>
-              ))}
-            {/* For All List */}
-            {!listSerch.results && (
-              <ListContent
-                itemContent={itemContent}
-                typeContent={typeContent} // в зависимости от типа будут создаваться ссылки или фильм или сериал
-              />
-            )}
+              </div>
+            </button>
+            <button onClick={() => handleTypeAndItems(!movieItems)}>
+              <div className="bg-[#3a5162] h-9 w-56 text-center text-white">
+                <div className="px-3 py-2 text-base rounded-full hover:scale-[1.05]">
+                  SERIES
+                </div>
+              </div>
+            </button>
+          </div>
+          <div className=" pr-2">
+            <Search setListSer={setListSerch} setMovieItems={setMovieItems} />
           </div>
         </div>
-        {typeContent && (
-          <div className="pt-8 pb-12 max-w-2xl m-auto">
-            <Pagination
-              listSer={listSerch}
-              pageEx={pageEx}
-              setPageEx={setPageEx}
-              handleTypeAndItems={handleTypeAndItems}
-              movieItems={movieItems}
-            />
+      )}
+
+      {movieItems.length && (
+        <div className=" max-w-[1600] w-full h-full bg-[#0f2c41] mx-auto rounded-sm">
+          <h2 className="text-2xl py-2 ml-16 pt-4">Popular:</h2>
+          <div className="flex justify-center">
+            <div className="relative w-[900px]">
+              <Swiper
+                cssMode={true}
+                spaceBetween={25}
+                slidesPerView={5.8}
+                keyboard={true}
+                mousewheel={true}
+                // navigation={true}
+                modules={[Mousewheel, Keyboard, Navigation]}
+                className="py-12"
+              >
+                {popularList.map((item, index) => (
+                  <SwiperSlide className="py-4" key={index}>
+                    <Link to={`/movie/movie_${item.id}_${item.title}`}>
+                      <Poster movie={item} />
+                    </Link>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <div className=" absolute -left-10 top-4">
+                <span className="flex items-center justify-center h-[200px] w-8 bg-[#0e1921]">
+                  {"<"}
+                </span>
+              </div>
+              <div className=" absolute -right-10 top-4">
+                <span className="flex items-center justify-center h-[200px] w-8 bg-[#0e1921]">
+                  {">"}
+                </span>
+              </div>
+            </div>
           </div>
-        )}
-      </div>
+
+          <div className="flex justify-between items-center w-full bg-[#0e1921] mt-16 relative ">
+            <div className="py-2">
+              <div className="absolute -top-12 left-16 text-2xl">Category</div>
+              {!listSerch.resultsS && (
+                <div className="">
+                  <Filter
+                    setPageEx={setPageEx}
+                    setActiveGenre={setActiveGenre}
+                    activeGenre={activeGenre}
+                    handleTypeAndItems={handleTypeAndItems}
+                    movieItems={movieItems}
+                    setMovieItems={setMovieItems}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="m-auto pt-6 px-6 rounded-lg max-w-[1100px]">
+            <div className="flex flex-wrap gap-8 justify-center py-8">
+              {/* For Serch List */}
+              {listSerch.results &&
+                listSerch.results.map((movie, index) => (
+                  <div key={index}>
+                    {movie && (
+                      <Link
+                        to={`/movie/${movie.title ? "movie" : "tv"}_${
+                          movie.id
+                        }_${movie.title ? movie.title : movie.name}`}
+                      >
+                        {movie.poster_path && <Poster movie={movie} />}
+                      </Link>
+                    )}
+                  </div>
+                ))}
+              {/* For All List */}
+              {!listSerch.results && (
+                <ListContent
+                  itemContent={itemContent}
+                  typeContent={typeContent} // в зависимости от типа будут создаваться ссылки или фильм или сериал
+                />
+              )}
+            </div>
+          </div>
+          {typeContent && (
+            <div className="pt-8 pb-12 max-w-2xl m-auto">
+              <Pagination
+                listSer={listSerch}
+                pageEx={pageEx}
+                setPageEx={setPageEx}
+                handleTypeAndItems={handleTypeAndItems}
+                movieItems={movieItems}
+              />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

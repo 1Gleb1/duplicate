@@ -37,7 +37,7 @@ const CastomHero = ({
             <div className="flex gap-8">
               <div className="flex flex-col gap-2">
                 <div className={` `}>
-                  <div className="w-[200px] rounded-2xl overflow-hidden">
+                  <div className="w-[200px] rounded-2xl overflow-hidden ">
                     <img src={imgW500} alt={movieTitle} />
                   </div>
                   <div className="flex gap-4 items-center">

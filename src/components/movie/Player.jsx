@@ -78,7 +78,7 @@ const Player = ({
         <iframe
           id="player"
           src={`https://74.svetacdn.in/DRQQUUcW0qvr?${id}`} //imdb_id=${movie.imdb_id} ?load=1?autoplay=1
-          className="absolute w-[340px] sm:w-[720px] h-[250px] sm:h-[520px]"
+          className="absolute w-[340px] sm:w-[720px] h-[250px] sm:h-[520px] "
           frameBorder="0"
           allowFullScreen
         />
