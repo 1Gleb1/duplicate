@@ -49,7 +49,7 @@ const CastomHero = ({
                         <Link
                           to={`/room/${(+new Date()).toString(
                             16
-                          )}/${typeContent}_${movieID}_${movieTitle}`}
+                          )}_${typeContent}_${movieID}_${movieTitle}`}
                         >
                           <a className="bg-[#3a5162] px-4 py-3 rounded-lg">
                             Create room

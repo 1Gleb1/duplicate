@@ -49,8 +49,6 @@ const Player = ({
     setRuTitle(result.name);
   }, [isAnimationGenre]);
 
-  // let player = new Playerjs({ id: "player", file: "//site.com/video.mp4" });
-
   return (
     <div className="my-8 flex justify-start  w ">
       <div className="relative w-[1000px] h-[450px] sm:max-h-[520px]">

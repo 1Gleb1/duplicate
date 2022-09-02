@@ -32,7 +32,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/movie/:slug" element={<Movie />} />
         <Route path="/user" element={<User />} />
-        <Route path="/room/:slug/:slug" element={<Together />} />
+        <Route path="/room/:slug" element={<Together />} />
       </Routes>
     </div>
   );

@@ -1,18 +1,22 @@
+import { onValue, ref, set, update } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import tmdbApi from "../../api/tmdbApi";
 import Player from "../../components/movie/Player";
 import Room from "../../components/movie/Room";
 import Chat from "../../components/user/Chat";
+import { database } from "../../firebase/clientApp";
 
 const Together = () => {
   const [mediaContent, setMediaContent] = useState({});
+  const [handleTime, setHandleTime] = useState({});
   const params = useParams();
   const chank = params.slug.split("_");
-  const contentType = chank[0];
-  const contentId = chank[1];
+  const roomID = chank[0];
+  const contentType = chank[1];
+  const contentId = chank[2];
   console.log(chank);
-  const [timeUser, setTimeUser] = useState();
+  const [timeUser, setTimeUser] = useState(0);
 
   // CONTROl
   ///////////////////////////////////////
@@ -20,7 +24,7 @@ const Together = () => {
   const changeTime = () => {
     document
       .getElementById("player")
-      .contentWindow.postMessage({ api: "seek", set: 600 }, "*");
+      .contentWindow.postMessage({ api: "seek", set: handleTime }, "*");
   };
   const changeVolume = () => {
     document
@@ -37,14 +41,29 @@ const Together = () => {
       .getElementById("player")
       .contentWindow.postMessage({ api: "pause" }, "*");
   };
-  // const logTime = () => {
-  //   document
-  //     .getElementById("player")
-  //     .contentWindow.postMessage({ api: "duration" }, "*");
-  //   // setTimeUser(
-  //   // );
-  // };
-  // console.log(logTime());
+
+  // получение времени
+  let time = 0;
+  window.addEventListener("message", function (event) {
+    time = event.data.time;
+  });
+  setTimeout(() => {
+    setTimeUser(time);
+    setTime(time);
+    const timeServerRef = ref(database, "rooms/" + roomID);
+    onValue(timeServerRef, (snapshot) => {
+      const data = snapshot.val();
+      setHandleTime(data.time);
+    });
+  }, 1000);
+  // console.log(time);
+  const setTime = (time) => {
+    console.log(time);
+    set(ref(database, `rooms/` + roomID), {
+      time: time,
+    });
+    // update(ref(database), { time: 15 });
+  };
   ///////////////////////////////////////
 
   useEffect(() => {
@@ -67,7 +86,6 @@ const Together = () => {
     };
     getContent();
   }, []);
-  console.log(mediaContent);
 
   return (
     <div className="min-h-screen w-[1000px] mx-auto bg-gray-700">
@@ -96,6 +114,8 @@ const Together = () => {
         <button onClick={() => changeVolume()}>Volume</button>
         <button onClick={() => changePlay()}>Play</button>
         <button onClick={() => changePause()}>Stop</button>
+        <button onClick={() => setTime(time)}>SetTime</button>
+        {/* <button onClick={() => logTime()}>Time Plaer</button> */}
       </div>
       {/* <div>
         <Room movie={movie} />
