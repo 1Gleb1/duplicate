@@ -6,43 +6,96 @@ import Room from "../../components/movie/Room";
 import Chat from "../../components/user/Chat";
 
 const Together = () => {
-  const [movie, setMovie] = useState({});
+  const [mediaContent, setMediaContent] = useState({});
   const params = useParams();
   const chank = params.slug.split("_");
-  const imdbId = chank[0];
+  const contentType = chank[0];
+  const contentId = chank[1];
+  console.log(chank);
+  const [timeUser, setTimeUser] = useState();
 
-  // PLAYER
+  // CONTROl
+  ///////////////////////////////////////
 
-  //
+  const changeTime = () => {
+    document
+      .getElementById("player")
+      .contentWindow.postMessage({ api: "seek", set: 600 }, "*");
+  };
+  const changeVolume = () => {
+    document
+      .getElementById("player")
+      .contentWindow.postMessage({ api: "volume", set: 0.5 }, "*");
+  };
+  const changePlay = () => {
+    document
+      .getElementById("player")
+      .contentWindow.postMessage({ api: "play" }, "*");
+  };
+  const changePause = () => {
+    document
+      .getElementById("player")
+      .contentWindow.postMessage({ api: "pause" }, "*");
+  };
+  // const logTime = () => {
+  //   document
+  //     .getElementById("player")
+  //     .contentWindow.postMessage({ api: "duration" }, "*");
+  //   // setTimeUser(
+  //   // );
+  // };
+  // console.log(logTime());
+  ///////////////////////////////////////
+
   useEffect(() => {
-    const getMovie = async () => {
-      try {
-        const response = await tmdbApi.getMovie(imdbId);
-        setMovie(response);
-      } catch {
-        console.log("error");
+    const getContent = async () => {
+      if (contentType == "movie") {
+        try {
+          const response = await tmdbApi.getMovie(contentId);
+          setMediaContent(response);
+        } catch {
+          console.log("error");
+        }
+      } else {
+        try {
+          const response = await tmdbApi.getTv(contentId);
+          setMediaContent(response);
+        } catch {
+          console.log("error");
+        }
       }
     };
-    getMovie();
+    getContent();
   }, []);
-  console.log(movie);
+  console.log(mediaContent);
+
   return (
-    <div className="min-h-screen w-full bg-gray-900">
+    <div className="min-h-screen w-[1000px] mx-auto bg-gray-700">
+      <div className="pl-12 pt-4">
+        <h1 className="text-3xl font-bold">
+          {mediaContent.name ? mediaContent.name : mediaContent.title}
+        </h1>
+      </div>
       <div className="flex">
-        <div className="flex flex-col">
-          <div className="w-[1200px] h-[600px] bg-gray-700 p-4">
-            {console.log(movie.imdb_id)}
+        <div className="flex">
+          <div className=" bg-gray-700  w-[600px] h-[500px] pl-12">
             <Player
-              originalLanguage={movie.original_language}
-              movieURL={movie.imdb_id}
-              title={movie.name}
-              originalName={movie.originalName}
-              typeContent={"movie"}
+              originalLanguage={mediaContent.original_language}
+              movieURL={mediaContent.imdb_id}
+              title={mediaContent.name}
+              originalName={mediaContent.originalName}
+              typeContent={contentType}
             />
           </div>
-          <div className="flex grow bg-gray-800 w-[1200px] h-[350px]"></div>
+          <div className="flex bg-gray-800 w-[300px] h-[450px] mt-8 ml-12"></div>
         </div>
-        <div className="h-screen w-[600px] bg-gray-600"></div>
+        {/* <div className="h-screen w-[600px] bg-gray-600"></div> */}
+      </div>
+      <div>
+        <button onClick={() => changeTime()}>Time</button>
+        <button onClick={() => changeVolume()}>Volume</button>
+        <button onClick={() => changePlay()}>Play</button>
+        <button onClick={() => changePause()}>Stop</button>
       </div>
       {/* <div>
         <Room movie={movie} />

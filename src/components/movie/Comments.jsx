@@ -19,7 +19,7 @@ const Comments = ({ id }) => {
   const auth = getAuth();
   const user = auth.currentUser ? auth : "";
   const userUid = user.uid;
-  console.log(id);
+  // console.log(id);
 
   const sendComment = async (e, msg) => {
     e.preventDefault();
@@ -46,10 +46,11 @@ const Comments = ({ id }) => {
       snapshot.forEach((comment) => {
         commentsArray.push(comment.data());
       });
-      setComments(comments);
+      setComments(commentsArray);
+      return unsub();
     });
 
-    console.log(comments);
+    // console.log(comments);
     // return () => {
     //   unsub();
     // };
@@ -78,8 +79,8 @@ const Comments = ({ id }) => {
         </form>
       </div>
       <div className="flex flex-col gap-4">
-        {comments.map((doc) => (
-          <div className="bg-[#1b374c] p-3 flex rounded-md">
+        {comments.map((doc, index) => (
+          <div key={index} className="bg-[#1b374c] p-3 flex rounded-md">
             <div className="avatar placeholder ">
               <div className="bg-[#0d2232] text-neutral-content border-2 rounded-full w-12 h-12 ">
                 <span className="text-lg">{doc.name[0]}</span>

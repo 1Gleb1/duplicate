@@ -37,7 +37,7 @@ const Header = () => {
 
   useEffect(() => {}, [isUser]);
   return (
-    <div>
+    <div className="">
       <div className="h-64 bg-black"></div>
 
       <div className="bg-black flex flex-col">

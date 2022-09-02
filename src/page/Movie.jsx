@@ -5,7 +5,14 @@ import apiConfig from "../api/apiConfig";
 import tmdbApi from "../api/tmdbApi";
 import Poster from "../components/Poster";
 import { firestore } from "../firebase/clientApp";
-import { addDoc, collection, doc, getDocs, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+} from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import Player from "../components/movie/Player";
 import Hero from "../components/movie/Hero";
@@ -28,14 +35,97 @@ const Movie = () => {
   const uid = auth.currentUser ? auth.currentUser.uid : "";
 
   const handleAdd = async (titlePlayList) => {
+    // Получение плейлистов
+    let onceArrayPlaylist;
+    const docPlaylist = doc(firestore, "favorite", uid);
+    const docPlaylistSnap = await getDoc(docPlaylist);
+    if (docPlaylistSnap.exists()) {
+      const playlistObject = docPlaylistSnap.data();
+      onceArrayPlaylist = [playlistObject];
+    } else {
+      console.log("No such document!");
+      onceArrayPlaylist = "";
+    }
+
+    // Отправка плейлистов
     if (titlePlayList.length) {
       let text = JSON.stringify(movie);
-      const newItem = `{${titlePlayList}}`;
-      const newJSONstringify = JSON.stringify(newItem);
-      const parseNewItem = JSON.parse(newJSONstringify);
-      console.log(parseNewItem);
-      // const docRef = collection(firestore, `favorite/${uid}/playlist`);
-      // await addDoc(docRef, parseNewItem);
+      let textTitle = JSON.stringify(titlePlayList);
+      if (onceArrayPlaylist.length > 0) {
+        onceArrayPlaylist.forEach((onePlaylist) => {
+          let isPlaylist = false;
+          const keysPlaylist = [];
+          const heroObject = onePlaylist.playlist;
+          heroObject.forEach((objectWithPlaylist) => {
+            keysPlaylist.push(...Object.keys(objectWithPlaylist));
+          });
+          keysPlaylist.forEach((key) => {
+            if (titlePlayList == key) {
+              isPlaylist = key;
+            }
+          });
+          if (isPlaylist) {
+            console.log("Кеш + обновить плейлист");
+            const selectTitleString = JSON.stringify(isPlaylist);
+            let allText = [];
+            let newItem = [];
+            for (let i = 0; i < onceArrayPlaylist[0].playlist.length; i++) {
+              const serchTitle = JSON.stringify(
+                ...Object.keys(onceArrayPlaylist[0].playlist[i])
+              );
+              if (selectTitleString == serchTitle) {
+                const selectPlaylist = JSON.stringify(
+                  onceArrayPlaylist[0].playlist[i]
+                );
+                const cashOpenPlaylist = selectPlaylist.substring(
+                  0,
+                  selectPlaylist.length - 2
+                );
+                const updatePlaylist = `${cashOpenPlaylist},${text}]}`;
+                allText.push(updatePlaylist);
+              } else {
+                const selectPlaylist = JSON.stringify(
+                  onceArrayPlaylist[0].playlist[i]
+                );
+                allText.push(selectPlaylist);
+              }
+            }
+            allText.forEach((playlistForParce) => {
+              newItem.push(JSON.parse(playlistForParce));
+            });
+            const newObject = {
+              playlist: newItem,
+            };
+            const docRef = doc(firestore, `favorite/${uid}`);
+            try {
+              setDoc(docRef, newObject);
+            } catch (e) {
+              console.log(e);
+            }
+          } else {
+            console.log("Иначе новый плейлист, кешируя имеющиеся");
+            const cashPlaylist = JSON.stringify(onceArrayPlaylist);
+            const cashOpenPlaylist = cashPlaylist.substring(
+              0,
+              cashPlaylist.length - 3
+            );
+            const newItem = `${cashOpenPlaylist},{${textTitle}: [${text}]} ]}]`;
+            let parseNewItem = JSON.parse(newItem);
+            console.log(parseNewItem);
+            const docRef = doc(firestore, `favorite/${uid}`);
+            try {
+              setDoc(docRef, parseNewItem[0]);
+            } catch (e) {
+              console.log(e);
+            }
+          }
+        });
+      } else {
+        const newItem = `{  "playlist": [{${textTitle}: [${text}, ${text}]}] } `;
+        let parseNewItem = JSON.parse(newItem);
+        const docRef = doc(firestore, `favorite/${uid}`);
+        await setDoc(docRef, parseNewItem);
+      }
     } else {
       console.log("ПУСТО");
     }
@@ -82,17 +172,20 @@ const Movie = () => {
         movieName={movie.name}
         originalTitle={movie.original_title}
         handleAdd={handleAdd}
-      />
-      <Player
-        movieURL={movie.imdb_id}
-        title={movie.name}
         typeContent={typeContent}
-        // title={movie.original_name}
-        originalLanguage={movie.original_language}
-        originalName={movie.original_name}
-        mediaID={movie.id}
-        genres={genres}
       />
+      <div className="h-[600px]">
+        <Player
+          movieURL={movie.imdb_id}
+          title={movie.name}
+          typeContent={typeContent}
+          // title={movie.original_name}
+          originalLanguage={movie.original_language}
+          originalName={movie.original_name}
+          mediaID={movie.id}
+          genres={genres}
+        />
+      </div>
       <LikeDis imdbID={imdbId} />
 
       <div>

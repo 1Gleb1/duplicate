@@ -17,6 +17,7 @@ const CastomHero = ({
   movieName,
   originTitle,
   handleAdd,
+  typeContent,
 }) => {
   const [isUser, setIsUser] = useState(false);
   onAuthStateChanged(auth, (user) => {
@@ -48,7 +49,7 @@ const CastomHero = ({
                         <Link
                           to={`/room/${(+new Date()).toString(
                             16
-                          )}/movie_${movieID}_${movieTitle}`}
+                          )}/${typeContent}_${movieID}_${movieTitle}`}
                         >
                           <a className="bg-[#3a5162] px-4 py-3 rounded-lg">
                             Create room

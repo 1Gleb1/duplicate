@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import tmdbApi from "../../api/tmdbApi";
+// import "../../../player/playerjs";s
 
 const Player = ({
   originalLanguage,
@@ -48,37 +49,16 @@ const Player = ({
     setRuTitle(result.name);
   }, [isAnimationGenre]);
 
-  // CONTROl
-  ///////////////////////////////////////
-  // const changeTime = () => {
-  //   document
-  //     .getElementById("player")
-  //     .contentWindow.postMessage({ api: "seek", set: 600 }, "*");
-  // };
-  // const changeVolume = () => {
-  //   document
-  //     .getElementById("player")
-  //     .contentWindow.postMessage({ api: "volume", set: 0.5 }, "*");
-  // };
-  // const changePlay = () => {
-  //   document
-  //     .getElementById("player")
-  //     .contentWindow.postMessage({ api: "play" }, "*");
-  // };
-  // const changePause = () => {
-  //   document
-  //     .getElementById("player")
-  //     .contentWindow.postMessage({ api: "pause" }, "*");
-  // };
-  ///////////////////////////////////////
+  // let player = new Playerjs({ id: "player", file: "//site.com/video.mp4" });
 
   return (
-    <div className="my-12 flex justify-start  w-full h-[250px] sm:h-[520px]">
-      <div className="relative w-full max-w-[340px] sm:max-w-[720px] pl-12">
+    <div className="my-8 flex justify-start  w ">
+      <div className="relative w-[1000px] h-[450px] sm:max-h-[520px]">
         <iframe
           id="player"
           src={`https://74.svetacdn.in/DRQQUUcW0qvr?${id}`} //imdb_id=${movie.imdb_id} ?load=1?autoplay=1
-          className="absolute w-[340px] sm:w-[720px] h-[250px] sm:h-[520px] "
+          // src={`//site.com/player/player.html?file=https://74.svetacdn.in/DRQQUUcW0qvr?${id}`} //imdb_id=${movie.imdb_id} ?load=1?autoplay=1
+          className="absolute top-0 left-12 w-full h-full sm:max-w-[580px] max-h-[250px] sm:max-h-[450px] "
           frameBorder="0"
           allowFullScreen
         />

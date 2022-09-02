@@ -24,7 +24,7 @@ const FavoriteList = ({ handleAdd, uid }) => {
     setPlaylistName(arrayTitle);
   };
 
-  console.log(playlistName);
+  // console.log(playlistName);
 
   useEffect(() => {
     getNamesPlaylists();
@@ -48,7 +48,6 @@ const FavoriteList = ({ handleAdd, uid }) => {
               </li>
             ))}
           </div>
-
           <div className="flex justify-around items-center">
             <input
               type="text"
