@@ -1,3 +1,4 @@
+import { getAuth } from "firebase/auth";
 import { onValue, ref, set, update } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -17,6 +18,9 @@ const Together = () => {
   const contentId = chank[2];
   console.log(chank);
   const [timeUser, setTimeUser] = useState(0);
+
+  const auth = getAuth();
+  const uid = auth.currentUser ? auth.currentUser.uid : `guest`; //${new Date().toString(8)}
 
   // CONTROl
   ///////////////////////////////////////
@@ -45,7 +49,7 @@ const Together = () => {
   // получение времени
   let time = 0;
   window.addEventListener("message", function (event) {
-    time = event.data.time;
+    time = Math.round(event.data.time);
   });
   setTimeout(() => {
     setTimeUser(time);
@@ -59,8 +63,8 @@ const Together = () => {
   // console.log(time);
   const setTime = (time) => {
     console.log(time);
-    set(ref(database, `rooms/` + roomID), {
-      time: time,
+    set(ref(database, `rooms/` + roomID + `/${uid}`), {
+      time,
     });
     // update(ref(database), { time: 15 });
   };
@@ -85,6 +89,7 @@ const Together = () => {
       }
     };
     getContent();
+    // setTime(time);
   }, []);
 
   return (

@@ -121,7 +121,7 @@ const Movie = () => {
           }
         });
       } else {
-        const newItem = `{  "playlist": [{${textTitle}: [${text}, ${text}]}] } `;
+        const newItem = `{  "playlist": [{${textTitle}: [${text}]}] } `;
         let parseNewItem = JSON.parse(newItem);
         const docRef = doc(firestore, `favorite/${uid}`);
         await setDoc(docRef, parseNewItem);
