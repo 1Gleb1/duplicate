@@ -89,7 +89,7 @@ const Together = () => {
       }
     };
     getContent();
-    // setTime(time);
+    setTime(time);
   }, []);
 
   return (
