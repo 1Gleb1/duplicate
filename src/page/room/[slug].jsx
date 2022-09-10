@@ -21,6 +21,7 @@ const Together = () => {
 
   const auth = getAuth();
   const guest = `guest`;
+  let version = "new";
   const uid = auth.currentUser.uid ? auth.currentUser.uid : guest;
 
   // CONTROl
