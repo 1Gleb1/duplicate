@@ -20,9 +20,7 @@ const Together = () => {
   const [timeUser, setTimeUser] = useState(0);
 
   const auth = getAuth();
-  const guest = `guest`;
-  let version = "new";
-  const uid = auth.currentUser.uid ? auth.currentUser.uid : guest;
+  const uid = auth.currentUser.uid ? auth.currentUser.uid : `guest`;
 
   // CONTROl
   ///////////////////////////////////////
