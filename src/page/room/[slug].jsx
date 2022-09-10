@@ -20,7 +20,8 @@ const Together = () => {
   const [timeUser, setTimeUser] = useState(0);
 
   const auth = getAuth();
-  const uid = auth.currentUser ? auth.currentUser.uid : `guest`; //${new Date().toString(8)}
+  const guest = `guest`;
+  const uid = auth.currentUser.uid ? auth.currentUser.uid : guest;
 
   // CONTROl
   ///////////////////////////////////////
@@ -50,20 +51,21 @@ const Together = () => {
   let time = 0;
   window.addEventListener("message", function (event) {
     time = Math.round(event.data.time);
-  });
-  setTimeout(() => {
-    setTimeUser(time);
     setTime(time);
-    const timeServerRef = ref(database, "rooms/" + roomID);
-    onValue(timeServerRef, (snapshot) => {
-      const data = snapshot.val();
-      setHandleTime(data.time);
-    });
-  }, 1000);
+  });
+  // setTimeout(() => {
+  //   setTimeUser(time);
+  //   setTime(time);
+  //   const timeServerRef = ref(database, "rooms/" + roomID);
+  //   onValue(timeServerRef, (snapshot) => {
+  //     const data = snapshot.val();
+  //     setHandleTime(data.time);
+  //   });
+  // }, 1000);
   // console.log(time);
-  const setTime = (time) => {
+  const setTime = async (time) => {
     console.log(time);
-    set(ref(database, `rooms/` + roomID + `/${uid}`), {
+    await set(ref(database, `rooms/` + roomID + `/${uid}`), {
       time,
     });
     // update(ref(database), { time: 15 });
