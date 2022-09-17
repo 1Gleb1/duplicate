@@ -43,9 +43,9 @@ const Header = () => {
       <div className="bg-black flex flex-col">
         <div className="flex justify-between items-center bg-[#0e1921] h-[40px] p-1 px-8 w-[1000px] mx-auto">
           <div className="w-48"></div>
-          <div className="w-48 text-center">
+          <div className="w-48 text-center ">
             <Link to={"/"}>
-              <div className="text-2xl text-white">Movies-Together</div>
+              <div className="text-2xl text-white ">Movies-Together</div>
             </Link>
           </div>
 

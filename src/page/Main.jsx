@@ -61,25 +61,41 @@ const Main = () => {
     getMoviesWithGeter();
   }, [activeGenre, pageEx, listSerch, setItemContent]);
 
-  const handleHome = () => {
-    setListSerch({});
-  };
-
   return (
-    <div className="min-w-[300px] max-w-[1000px] mx-auto w-full min-h-screen">
+    <div className="min-w-[300px] max-w-[1000px] mx-auto w-full min-h-screen ">
       {movieItems.length && (
         <div className=" max-w-[1600] w-full h-full bg-[#0f2c41] mx-auto rounded-sm">
           <h2 className="text-2xl py-2 ml-16 pt-4">Popular:</h2>
           <div className="flex justify-center">
-            <div className="relative w-[900px]">
+            <div className="relative max-w-[900px] w-full px-4">
               <Swiper
                 cssMode={true}
-                spaceBetween={25}
-                slidesPerView={5.8}
+                // spaceBetween={25}
+                // slidesPerView={5.8}
                 keyboard={true}
                 mousewheel={true}
                 // navigation={true}
                 modules={[Mousewheel, Keyboard, Navigation]}
+                breakpoints={{
+                  320: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                  },
+                  // // when window width is >= 480px
+                  480: {
+                    slidesPerView: 4,
+                    spaceBetween: 30,
+                  },
+                  // // when window width is >= 640px
+                  640: {
+                    slidesPerView: 5,
+                    spaceBetween: 40,
+                  },
+                  780: {
+                    slidesPerView: 5.8,
+                    spaceBetween: 40,
+                  },
+                }}
                 className="py-12"
               >
                 {popularList.map((item, index) => (
@@ -90,7 +106,7 @@ const Main = () => {
                   </SwiperSlide>
                 ))}
               </Swiper>
-              <div className=" absolute -left-10 top-4">
+              {/* <div className=" absolute -left-10 top-4">
                 <span className="flex items-center justify-center h-[200px] w-8 bg-[#0e1921]">
                   {"<"}
                 </span>
@@ -99,7 +115,7 @@ const Main = () => {
                 <span className="flex items-center justify-center h-[200px] w-8 bg-[#0e1921]">
                   {">"}
                 </span>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -121,7 +137,7 @@ const Main = () => {
             </div>
           </div>
 
-          <div className="m-auto pt-6 px-6 rounded-lg max-w-[1100px]">
+          <div className="m-auto pt-6 px-6 rounded-lg max-w-[1100px] ">
             <div className="flex flex-wrap gap-8 justify-center py-8">
               {/* For Serch List */}
               {listSerch.results &&

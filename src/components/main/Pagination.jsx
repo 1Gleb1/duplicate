@@ -11,23 +11,36 @@ const Pagination = ({ listSer, pageEx, setPageEx, handleTypeAndItems }) => {
       setPageEx(1);
     }
   };
+
   const nextPage = () => {
     let value = pageEx;
     value = value + 1;
     setPageEx(value);
     handleTypeAndItems(value);
   };
+
   const handlePage = (value) => {
     setPageEx(Number(value));
     listPage.length = 0;
   };
+
+  const screenWidth = window.screen.width;
+  console.log(screenWidth);
+
+  const listPageforMobile = [];
   const listPage = [];
+
   for (let i = 1; i < pageEx + 10; i++) {
     if (listPage.length >= 10) {
     } else {
       listPage.push(pageEx + i);
     }
+    if (listPage.length >= 6) {
+    } else {
+      listPageforMobile.push(pageEx + i);
+    }
   }
+
   return (
     <div className="flex justify-center">
       {!listSer.results && (
@@ -35,15 +48,26 @@ const Pagination = ({ listSer, pageEx, setPageEx, handleTypeAndItems }) => {
           <button onClick={() => prevPage()} className="btn">
             «
           </button>
-          {listPage.map((page, index) => (
-            <button
-              key={index}
-              onClick={() => handlePage(page)}
-              className={`btn btn-md ${page === pageEx ? "btn-active" : ""}`}
-            >
-              {page}
-            </button>
-          ))}
+          {screenWidth < 480 &&
+            listPageforMobile.map((page, index) => (
+              <button
+                key={index}
+                onClick={() => handlePage(page)}
+                className={`btn btn-md ${page === pageEx ? "btn-active" : ""}`}
+              >
+                {page}
+              </button>
+            ))}
+          {screenWidth > 480 &&
+            listPage.map((page, index) => (
+              <button
+                key={index}
+                onClick={() => handlePage(page)}
+                className={`btn btn-md ${page === pageEx ? "btn-active" : ""}`}
+              >
+                {page}
+              </button>
+            ))}
           <input
             type="text"
             placeholder="..."

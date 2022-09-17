@@ -1,16 +1,19 @@
 import { getAuth } from "firebase/auth";
-import { onValue, ref, set, update } from "firebase/database";
+import { onValue, ref, serverTimestamp, set } from "firebase/database";
+import { doc, setDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import tmdbApi from "../../api/tmdbApi";
 import Player from "../../components/movie/Player";
 import Room from "../../components/movie/Room";
 import Chat from "../../components/user/Chat";
-import { database } from "../../firebase/clientApp";
+import { database, firestore } from "../../firebase/clientApp";
 
 const Together = () => {
   const [mediaContent, setMediaContent] = useState({});
   const [handleTime, setHandleTime] = useState({});
+  const [usersTime, setUsersTime] = useState();
+  const [usersName, setUsersName] = useState();
   const params = useParams();
   const chank = params.slug.split("_");
   const roomID = chank[0];
@@ -20,7 +23,8 @@ const Together = () => {
   const [timeUser, setTimeUser] = useState(0);
 
   const auth = getAuth();
-  const uid = auth.currentUser ? auth.currentUser.uid : `guest${+new Date()}`;
+  const timeUserEnter = "guest";
+  const uid = auth.currentUser ? auth.currentUser.uid : timeUserEnter;
 
   // CONTROl
   ///////////////////////////////////////
@@ -49,7 +53,7 @@ const Together = () => {
   // получение времени
   let time = 0;
   window.addEventListener("message", function (event) {
-    time = Math.round(event.data.time);
+    time = time ? Math.round(event.data.time) : 10;
     setTime(time);
   });
   // setTimeout(() => {
@@ -63,13 +67,31 @@ const Together = () => {
   // }, 1000);
   // console.log(time);
   const setTime = async (time) => {
-    console.log(time);
     await set(ref(database, `rooms/` + roomID + `/${uid}`), {
       time,
     });
     // update(ref(database), { time: 15 });
   };
+
+  const getTimeAllUsers = () => {
+    const timeAllUsersRef = ref(database, `rooms/${roomID}`);
+    onValue(timeAllUsersRef, (snapshot) => {
+      const data = snapshot.val();
+      setUsersName(Object.keys(data));
+      setUsersTime(Object.values(data));
+      console.log(usersTime);
+      console.log(usersName);
+      // const dataStringChange = dataString.replace("{", "[");
+      // setUsersTime(dataString);
+    });
+  };
   ///////////////////////////////////////
+
+  // const pushUserOnFirestore = async () => {
+  //   const docRef = await setDoc(doc(firestore, "rooms/" + roomID), {
+  //     users: [],
+  //   });
+  // };
 
   useEffect(() => {
     const getContent = async () => {
@@ -91,6 +113,8 @@ const Together = () => {
     };
     getContent();
     setTime(time);
+    getTimeAllUsers();
+    // pushUserOnFirestore();
   }, []);
 
   return (
@@ -123,6 +147,16 @@ const Together = () => {
         <button onClick={() => setTime(time)}>SetTime</button>
         {/* <button onClick={() => logTime()}>Time Plaer</button> */}
       </div>
+
+      <div>
+        {/* {usersName.map((name, index) => (
+          <div key={index}>{name}</div>
+        ))} */}
+        {/* {usersTime.map((time, index) => (
+          <div key={index}>{time}</div>
+        ))} */}
+      </div>
+
       {/* <div>
         <Room movie={movie} />
       </div> */}
@@ -134,7 +168,6 @@ const Together = () => {
           frameBorder="0"
           allowFullScreen
         />
-
         <div className="pt-[600px] w-full bg-green-800">
           <span>Playlist</span>
           <div>Movie</div>
