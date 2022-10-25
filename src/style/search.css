@@ -1,0 +1,27 @@
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search__form {
+  background: none;
+  border: none;
+  transition: width 0.3s;
+  width: 4rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+.search__form::placeholder {
+  color: white;
+}
+.search__form:focus {
+  border: none;
+  outline: none;
+  width: 10rem;
+  background: #728899;
+  color: black;
+}
+.search__form:focus::placeholder {
+  color: var(--main_dark);
+}

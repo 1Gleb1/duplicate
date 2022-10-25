@@ -50,8 +50,8 @@ const Player = ({
   }, [isAnimationGenre]);
 
   return (
-    <div className="my-8 flex justify-start  w ">
-      <div className="relative w-[1000px] h-[450px] sm:max-h-[520px]">
+    <div className="my-8 flex justify-start  ">
+      <div className="relative w-[200px] sm:w-[560px] lg:w-[1000px] h-[450px] sm:max-h-[520px]">
         <iframe
           id="player"
           src={`https://74.svetacdn.in/DRQQUUcW0qvr?${id}`} //imdb_id=${movie.imdb_id} ?load=1?autoplay=1

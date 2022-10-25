@@ -17,6 +17,7 @@ const CastomHero = ({
   movieName,
   originTitle,
   handleAdd,
+  handleAddCallback,
   typeContent,
 }) => {
   const [isUser, setIsUser] = useState(false);
@@ -29,8 +30,8 @@ const CastomHero = ({
   });
   return (
     <div>
-      <div className="w-[1200px] px-36 py-6">
-        <span className="flex items-center gap-8 font-black text-sm sm:text-4xl py-4 ">
+      <div className="max-w-[1200px] w-full lg:px-36 py-6">
+        <span className="flex items-center gap-8 font-black text-md md:text-4xl py-4 ">
           {movieTitle ? movieTitle : movieName}
         </span>
         <div className="flex gap-6 items-center">
@@ -38,20 +39,24 @@ const CastomHero = ({
             <div className="flex gap-8">
               <div className="flex flex-col gap-2">
                 <div className={` `}>
-                  <div className="w-[200px] rounded-2xl overflow-hidden ">
+                  <div className="w-[100px] sm:w-[150px] lg:w-[200px] rounded-2xl overflow-hidden ">
                     <img src={imgW500} alt={movieTitle} />
                   </div>
                   <div className="flex gap-4 items-center">
                     {isUser ? (
                       <div className="flex flex-col items-start pt-2 gap-7 mt-4">
-                        <FavoriteList handleAdd={handleAdd} uid={uid} />
+                        <FavoriteList
+                          handleAdd={handleAdd}
+                          handleAddCallback={handleAddCallback}
+                          uid={uid}
+                        />
 
                         <Link
                           to={`/room/${(+new Date()).toString(
                             16
                           )}_${typeContent}_${movieID}_${movieTitle}`}
                         >
-                          <a className="bg-[#3a5162] px-4 py-3 rounded-lg">
+                          <a className="bg-[#3a5162] px-1 py-1 sm:px-4 sm:py-3 text-md sm:text-lg rounded-lg">
                             Create room
                           </a>
                         </Link>
@@ -68,24 +73,22 @@ const CastomHero = ({
                   </div>
                 </div>
               </div>
-              <div className=" flex flex-col text-white leading-none">
-                <div className="flex py-2 gap-2 text-xl">
+              <div className=" flex flex-col text-white text-sm sm:text-md md:text-xl leading-none">
+                <div className="flex py-2 gap-2 ">
                   Genres:
                   {genres &&
                     genres.map((genre, index) => (
-                      <div key={index} className="text-lg">
+                      <div key={index} className="">
                         | {genre.name}
                       </div>
                     ))}
                 </div>
                 {movieTitle && (
-                  <div className="text-xl font-bold">
+                  <div className=" font-bold">
                     Duration: {movieDuration} min
                   </div>
                 )}
-                <span className="text-sm sm:text-2xl max-w-3xl">
-                  {overview}
-                </span>
+                <span className=" max-w-3xl">{overview}</span>
               </div>
             </div>
           </div>

@@ -24,7 +24,7 @@ const Chat = ({ setAnotherUser, anotherUser, currentID }) => {
   const currentUserId = user.uid;
 
   const back = () => {
-    setAnotherUser();
+    setAnotherUser("");
   };
 
   const sendMessage = async (e, msg) => {
@@ -69,10 +69,12 @@ const Chat = ({ setAnotherUser, anotherUser, currentID }) => {
   }, []);
 
   return (
-    <div className="bg-gray-700 p-4 rounded-lg flex flex-col w-[600px] h-[600px]">
+    <div className="bg-gray-700 p-4 rounded-lg flex flex-col absolute top-0 right-0 bottom-0 left-0">
       <div className="flex justify-between items-center">
-        <button onClick={() => back()}>Back</button>
-        <h5 className=" font-bold mb-3 text-center">{displayName}</h5>
+        <button onClick={back}>Back</button>
+        <h5 className=" font-bold mb-3 text-center">
+          {displayName ? displayName : anotherUser.email}
+        </h5>
         <div />
       </div>
       {/*  */}
@@ -82,12 +84,18 @@ const Chat = ({ setAnotherUser, anotherUser, currentID }) => {
       >
         {messages &&
           messages.map((message, index) => (
-            <div className="flex relative" key={index}>
-              <div className="w-12 h-12 " />
-              <div className=" absolute top-3 left-1 w-12 h-12 bg-white rounded-full" />
+            <div className="flex relative h-26" key={index}>
+              <div className="w-12 h-12 my-2" />
+              <div className=" absolute top-3 left-1 w-12 h-12 bg-white rounded-full">
+                <img
+                  src={require("../../img/kit.jpg")}
+                  alt="avatar"
+                  className="h-12 w-12 rounded-full"
+                />
+              </div>
 
               <div
-                className={`rounded-2xl text-sky-400 flex flex-col p-3 w-[60%] relative self-end`}
+                className={`rounded-2xl text-sky-400 flex flex-col p-3 w-[60%] relative self-end `}
               >
                 <div className="flex flex-col">
                   <h6 className="font-basic text-md flex gap-8 items-center">
@@ -108,7 +116,7 @@ const Chat = ({ setAnotherUser, anotherUser, currentID }) => {
               </div>
             </div>
           ))}
-        <div ref={anchor}></div>
+        <div ref={anchor} />
       </div>
       {/*  */}
       <div className="my-2">

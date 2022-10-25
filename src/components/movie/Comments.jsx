@@ -82,7 +82,7 @@ const Comments = ({ id }) => {
         {comments.map((doc, index) => (
           <div key={index} className="bg-[#1b374c] p-3 flex rounded-md">
             <div className="avatar placeholder ">
-              <div className="bg-[#0d2232] text-neutral-content border-2 rounded-full w-12 h-12 ">
+              <div className="bg-[#0d2232] text-neutral-content border-2 rounded-full max-w-12 h-12 ">
                 <span className="text-lg">{doc.name[0]}</span>
               </div>
             </div>

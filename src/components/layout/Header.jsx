@@ -38,59 +38,36 @@ const Header = () => {
   useEffect(() => {}, [isUser]);
   return (
     <div className="">
-      <div className="h-64 bg-black"></div>
+      {/* <div className="h-12 bg-black"></div> */}
 
       <div className="bg-black flex flex-col">
-        <div className="flex justify-between items-center bg-[#0e1921] h-[40px] p-1 px-8 w-[1000px] mx-auto">
-          <div className="w-48"></div>
+        <div className="flex justify-between items-center bg-[#0e1921] h-[40px] p-1 px-8 max-w-[1000px] w-full mx-auto ">
+          <div className="w-48 hidden md:block"></div>
           <div className="w-48 text-center ">
             <Link to={"/"}>
-              <div className="text-2xl text-white ">Movies-Together</div>
+              <div className="text-sm md:text-2xl text-white ">
+                Movies-Together
+              </div>
             </Link>
           </div>
 
-          <div className="w-48 text-right">
+          <div className="w-[12vw] text-right text-white text-sm  px-2">
             <Link to={"/user"}>
-              <a className="hover:underline text-white">
-                User({auth.currentUser && auth.currentUser.email})
+              <a className="hover:underline">
+                User({auth.currentUser && auth.currentUser.displayName})
+                {/* {console.log(auth.currentUser)} */}
               </a>
             </Link>
             {auth.currentUser != null && (
-              <button onClick={handleLogOut} className="text-white">
+              <button
+                onClick={handleLogOut}
+                // className="bg-purple-700 hover:bg-purple-800 transition px-1 py-2 rounded-lg"
+              >
                 Logout
               </button>
             )}
           </div>
         </div>
-        {/* <div className="flex justify-between items-center bg-[#0e1921] h-[38px] w-[1000px] mx-auto">
-          <div className="flex gap-1">
-            <div className="bg-[#3a5162] h-9 w-56 text-center text-white">
-              <Link to={"/"}>
-                <a>
-                  <button onClick={() => handleTypeAndItems(movieItems)}>
-                    <div className="px-3 py-2 text-base rounded-full hover:scale-[1.05]">
-                      MOVIE
-                    </div>
-                  </button>
-                </a>
-              </Link>
-            </div>
-            <div className="bg-[#3a5162] h-9 w-56 text-center text-white">
-              <Link to={"/"}>
-                <a>
-                  <button onClick={() => handleTypeAndItems(!movieItems)}>
-                    <div className="px-3 py-2 text-base rounded-full hover:scale-[1.05]">
-                      SERIES
-                    </div>
-                  </button>
-                </a>
-              </Link>
-            </div>
-          </div>
-          <div className=" pr-2">
-            <Search setListSer={setListSer} setMovieItems={setMovieItems} />
-          </div>
-        </div> */}
       </div>
     </div>
     // <div className="w-full text-white bg-gray-800">

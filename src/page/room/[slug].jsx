@@ -19,8 +19,8 @@ const Together = () => {
   const roomID = chank[0];
   const contentType = chank[1];
   const contentId = chank[2];
-  console.log(chank);
-  const [timeUser, setTimeUser] = useState(0);
+  // console.log(chank);
+  const [time, setTime] = useState(0);
 
   const auth = getAuth();
   const timeUserEnter = "guest";
@@ -51,40 +51,47 @@ const Together = () => {
   };
 
   // получение времени
-  let time = 0;
-  window.addEventListener("message", function (event) {
-    time = time ? Math.round(event.data.time) : 10;
-    setTime(time);
-  });
-  // setTimeout(() => {
-  //   setTimeUser(time);
+  // window.addEventListener("message", function (event) {
+  //   time = time ? Math.round(event.data.time) : 10;
   //   setTime(time);
-  //   const timeServerRef = ref(database, "rooms/" + roomID);
-  //   onValue(timeServerRef, (snapshot) => {
-  //     const data = snapshot.val();
-  //     setHandleTime(data.time);
-  //   });
+  // });
+  // let times = 0;
+  // window.addEventListener("message", function (event) {
+  //   // this.setInterval(function () {
+  //   times = times ? Math.round(event.data.time) : 10;
+  //   // }, 1000);
+  //   console.log(times);
+  //   setTime(time);
+  // });
+  // setInterval(() => {
+  // setTimeUser(time);
+  // setTime(time);
+  // const timeServerRef = ref(database, "rooms/" + roomID);
+  // onValue(timeServerRef, (snapshot) => {
+  //   const data = snapshot.val();
+  //   setHandleTime(data.time);
+  // });
   // }, 1000);
   // console.log(time);
-  const setTime = async (time) => {
-    await set(ref(database, `rooms/` + roomID + `/${uid}`), {
-      time,
-    });
-    // update(ref(database), { time: 15 });
-  };
+  // const setTime = async (time) => {
+  //   await set(ref(database, `rooms/` + roomID + `/${uid}`), {
+  //     time,
+  //   });
+  // update(ref(database), { time: 15 });
+  // };
 
-  const getTimeAllUsers = () => {
-    const timeAllUsersRef = ref(database, `rooms/${roomID}`);
-    onValue(timeAllUsersRef, (snapshot) => {
-      const data = snapshot.val();
-      setUsersName(Object.keys(data));
-      setUsersTime(Object.values(data));
-      console.log(usersTime);
-      console.log(usersName);
-      // const dataStringChange = dataString.replace("{", "[");
-      // setUsersTime(dataString);
-    });
-  };
+  // const getTimeAllUsers = () => {
+  //   const timeAllUsersRef = ref(database, `rooms/${roomID}`);
+  //   onValue(timeAllUsersRef, (snapshot) => {
+  //     const data = snapshot.val();
+  //     setUsersName(Object.keys(data));
+  //     setUsersTime(Object.values(data));
+  //     console.log(usersTime);
+  //     console.log(usersName);
+  // const dataStringChange = dataString.replace("{", "[");
+  // setUsersTime(dataString);
+  // });
+  // };
   ///////////////////////////////////////
 
   // const pushUserOnFirestore = async () => {
@@ -112,10 +119,10 @@ const Together = () => {
       }
     };
     getContent();
-    setTime(time);
-    getTimeAllUsers();
+    // getTimeAllUsers();
     // pushUserOnFirestore();
   }, []);
+  // setTime(time);
 
   return (
     <div className="min-h-screen w-[1000px] mx-auto bg-gray-700">
@@ -144,7 +151,7 @@ const Together = () => {
         <button onClick={() => changeVolume()}>Volume</button>
         <button onClick={() => changePlay()}>Play</button>
         <button onClick={() => changePause()}>Stop</button>
-        <button onClick={() => setTime(time)}>SetTime</button>
+        {/* <button onClick={() => setTime(time)}>SetTime</button> */}
         {/* <button onClick={() => logTime()}>Time Plaer</button> */}
       </div>
 

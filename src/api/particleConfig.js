@@ -3,7 +3,7 @@ const particleConfig = {
   fullScreen: { enable: true },
   particles: {
     number: {
-      value: 80,
+      value: 40,
       density: {
         enable: true,
         value_area: 1400,
@@ -19,7 +19,7 @@ const particleConfig = {
         color: "#000000",
       },
       polygon: {
-        nb_sides: 5,
+        nb_sides: 3,
       },
       image: {
         src: "img/github.svg",
@@ -69,45 +69,45 @@ const particleConfig = {
       },
     },
   },
-  interactivity: {
-    detect_on: "window",
-    events: {
-      onhover: {
-        enable: true,
-        mode: "bubble",
-      },
-      // onclick: {
-      //   enable: true,
-      //   mode: "push",
-      // },
-      resize: true,
-    },
-    modes: {
-      grab: {
-        distance: 400,
-        line_linked: {
-          opacity: 1,
-        },
-      },
-      bubble: {
-        distance: 250,
-        size: 0,
-        duration: 2,
-        opacity: 0,
-        speed: 3,
-      },
-      repulse: {
-        distance: 400,
-        duration: 0.4,
-      },
-      push: {
-        particles_nb: 4,
-      },
-      remove: {
-        particles_nb: 2,
-      },
-    },
-  },
+  // interactivity: {
+  //   detect_on: "window",
+  //   events: {
+  //     onhover: {
+  //       enable: true,
+  //       mode: "bubble",
+  //     },
+  //     onclick: {
+  //       enable: true,
+  //       mode: "push",
+  //     },
+  //     resize: true,
+  //   },
+  //   modes: {
+  //     grab: {
+  //       distance: 400,
+  //       line_linked: {
+  //         opacity: 1,
+  //       },
+  //     },
+  //     bubble: {
+  //       distance: 250,
+  //       size: 0,
+  //       duration: 2,
+  //       opacity: 0,
+  //       speed: 3,
+  //     },
+  //     repulse: {
+  //       distance: 400,
+  //       duration: 0.4,
+  //     },
+  //     push: {
+  //       particles_nb: 4,
+  //     },
+  //     remove: {
+  //       particles_nb: 2,
+  //     },
+  //   },
+  // },
   detectRetina: true,
 };
 

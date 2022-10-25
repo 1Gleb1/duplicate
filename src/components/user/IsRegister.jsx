@@ -19,7 +19,7 @@ const IsRegister = () => {
   };
 
   return (
-    <div>
+    <div className="bg-gray-500 w-[400px] mx-auto p-4 rounded-lg">
       {auth.currentUser == null && (
         <div>
           {isRegisterForm && (

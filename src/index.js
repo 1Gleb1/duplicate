@@ -8,9 +8,9 @@ import Layout from "./components/layout/Layout";
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
-      {/* <Layout> */}
-      <App className="w-full" />
-      {/* </Layout> */}
+      <Layout>
+        <App className="w-full" />
+      </Layout>
     </React.StrictMode>
   </BrowserRouter>,
   document.getElementById("root")

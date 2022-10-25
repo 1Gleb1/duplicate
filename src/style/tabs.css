@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .container {
+    @apply absolute top-0 left-0 right-0 bottom-0
+    /* @apply flex flex-col  bg-gray-500 ml-[100px] my-auto mr-0 break-all border-2 border-black/[0.274]; */;
+  }
+  .block-tabs {
+    @apply flex;
+  }
+  .tabs {
+    @apply p-[15px] w-1/2 bg-[rgb(128,128,128)]/[0.075] cursor-pointer border-b-[1px] border-black/[0.274] box-content relative outline-none;
+  }
+  .tabs:not(:last-child) {
+    @apply border-r-[1px] border-black/[0.274];
+  }
+
+  .active-tabs {
+    @apply bg-[#0E1921] opacity-90 border-2 text-white border-b-0 text-center;
+  }
+  /* .active-tabs::before {
+    @apply before:content-[''] block absolute -top-[5px] left-1/2 -translate-x-1/2  h-[5px] bg-[rgb(88,147,241)];
+  } */
+
+  button {
+    @apply border-none;
+  }
+  .content-tabs {
+    @apply grow overflow-x-auto;
+  }
+
+  .content {
+    @apply bg-[#0E1921] text-white p-[20px] w-full h-full hidden;
+  }
+  .active-content {
+    @apply block;
+  }
+}

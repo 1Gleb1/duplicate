@@ -48,7 +48,7 @@ const Pagination = ({ listSer, pageEx, setPageEx, handleTypeAndItems }) => {
           <button onClick={() => prevPage()} className="btn">
             «
           </button>
-          {screenWidth < 480 &&
+          {screenWidth < 460 &&
             listPageforMobile.map((page, index) => (
               <button
                 key={index}
@@ -58,7 +58,7 @@ const Pagination = ({ listSer, pageEx, setPageEx, handleTypeAndItems }) => {
                 {page}
               </button>
             ))}
-          {screenWidth > 480 &&
+          {screenWidth > 460 &&
             listPage.map((page, index) => (
               <button
                 key={index}

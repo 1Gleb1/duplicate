@@ -19,6 +19,7 @@ import Hero from "../components/movie/Hero";
 import CastomHero from "../components/movie/CastomHero";
 import Comments from "../components/movie/Comments";
 import LikeDis from "../components/movie/LikeDis";
+import { useCallback } from "react";
 
 const Movie = () => {
   const [collectionMovie, setCollectionMovie] = useState([]);
@@ -32,7 +33,7 @@ const Movie = () => {
   const imdbId = chank[1];
 
   const auth = getAuth();
-  const uid = auth.currentUser ? auth.currentUser.uid : "";
+  const uid = auth.currentUser && auth.currentUser.uid;
 
   const handleAdd = async (titlePlayList) => {
     // Получение плейлистов
@@ -131,6 +132,10 @@ const Movie = () => {
     }
   };
 
+  const handleAddCallback = useCallback(async (titlePlayList) => {
+    await handleAdd(titlePlayList);
+  });
+
   useEffect(() => {
     const getMovie = async () => {
       try {
@@ -156,9 +161,9 @@ const Movie = () => {
     return () => {};
   }, [imdbId]);
 
-  console.log(movie);
+  // console.log(movie);
   return (
-    <div className="w-[1000px] mx-auto bg-[#0f2c41] min-h-sreen flex flex-col justify-center items-center">
+    <div className="max-w-[1000px] mx-auto bg-[#0f2c41] min-h-sreen flex flex-col justify-center items-center">
       <CastomHero
         auth={auth}
         uid={uid}
@@ -172,6 +177,7 @@ const Movie = () => {
         movieName={movie.name}
         originalTitle={movie.original_title}
         handleAdd={handleAdd}
+        handleAddCallback={handleAddCallback}
         typeContent={typeContent}
       />
       <div className="h-[600px]">
@@ -186,12 +192,12 @@ const Movie = () => {
           genres={genres}
         />
       </div>
-      <LikeDis imdbID={imdbId} />
+      {/* <LikeDis imdbID={imdbId} /> */}
 
       <div>
-        {collectionMovie.length && (
-          <div className=" w-[1000px] ">
-            <div className="pl-12 w-[900px] flex flex-col items-start gap-1 flex-wrap pt-8 mb-8">
+        {collectionMovie.length ? (
+          <div className="w-[1000px] ">
+            <div className="pl-12 w-[900px] flex flex-col items-start gap-1 flex-wrap mb-8">
               <span className="text-3xl mb-4"> Collection:</span>
               {collectionMovie &&
                 collectionMovie.map((movie, index) => (
@@ -230,12 +236,14 @@ const Movie = () => {
                   ))}
               </div>
             </div>
-            <div className="h-20 w-[1000px] bg-[#1c405a]" />
+            {/* <div className="h-20 w-[1000px] bg-[#1c405a]" /> */}
           </div>
+        ) : (
+          <div></div>
         )}
       </div>
 
-      <div className="w-[900px] my-12">
+      <div className="max-w-[900px] w-full my-12">
         <div className="flex flex-col gap-6">
           <span className="text-3xl">Comments:</span>
           <Comments id={movie.id} />
