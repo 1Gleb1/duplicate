@@ -26,33 +26,31 @@ const Tabs = ({
   };
 
   return (
-    <div>
-      <div>
-        <div className="block-tabs ">
-          {/* FOREACH nameTabs */}
-          {arrayTabs &&
-            !anotherUser &&
-            arrayTabs.map((element, id) => (
-              <div
-                key={id}
-                className={` ${
-                  toggleState === id ? "tabs active-tabs" : "tabs"
-                } flex justify-center items-center`}
-                onClick={() => toggleTab(id)}
-              >
-                <div className="flex ">{element}</div>
-                <div>
-                  {element != "All User" && element != "Friends" && (
-                    <div className="pl-2">
-                      <button onClick={() => deletePlaylist(id)}>X</button>
-                    </div>
-                  )}
-                </div>
+    <div className="">
+      <div className="flex ">
+        {/* FOREACH nameTabs */}
+        {arrayTabs &&
+          !anotherUser &&
+          arrayTabs.map((element, id) => (
+            <div
+              key={id}
+              className={` whitespace-nowrap ${
+                toggleState === id ? "tabs active-tabs" : "tabs"
+              } flex justify-center items-center`}
+              onClick={() => toggleTab(id)}
+            >
+              <div className="  w-1/2 text-center">{element}</div>
+              <div>
+                {element != "All User" && element != "Friends" && (
+                  <div className="pl-4">
+                    <button onClick={() => deletePlaylist(id)}>X</button>
+                  </div>
+                )}
               </div>
-            ))}
-        </div>
+            </div>
+          ))}
       </div>
-      <div>
+      <div className="">
         <div className="">
           {arrayContent.length ? (
             <div>
@@ -88,15 +86,15 @@ const Tabs = ({
           {/* FOREACH contentTabs */}
           {arrayContent.length ? (
             <div>
-              <div className="my-2 overflow-hidden flex justify-center items-center">
+              <div className="my-2 overflow-hidden flex justify-center items-center ">
                 {arrayContent[toggleState].length ? (
                   <div className="flex gap-8 overflow-hidden">
                     {arrayContent[toggleState].map((element, id) => (
                       <div key={id}>
                         <div className="">
                           {!element.uid && (
-                            <div>
-                              <div className="w-32">
+                            <div className="relative w-32">
+                              <div className="w-32 ">
                                 <Link
                                   to={
                                     element.vote_average > 0
@@ -120,7 +118,11 @@ const Tabs = ({
                                   deleteMovieFromPlaylist(toggleState, id)
                                 }
                               >
-                                <div className="w-4 h-4 bg-red-700">X</div>
+                                <div className="absolute top-0 left-0">
+                                  <div className="w-8 h-8 flex justify-center items-center bg-red-700 hover:bg-red-800 rounded-full">
+                                    X
+                                  </div>
+                                </div>
                               </button>
                             </div>
                           )}
@@ -134,8 +136,10 @@ const Tabs = ({
               </div>
             </div>
           ) : (
-            <div className="flex justify-center items-center w-[900px] h-56 text-2xl bg-gray-800">
-              <span>У вас еще нет плейлистов</span>
+            <div className="max-w-[100px]">
+              <div className="flex justify-center items-center  h-56 text-2xl bg-gray-800">
+                <span>У вас еще нет плейлистов</span>
+              </div>
             </div>
           )}
         </div>

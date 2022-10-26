@@ -126,7 +126,7 @@ const UserList = ({
   }, []);
 
   return (
-    <div>
+    <div className="w-full">
       {!anotherUser && (
         <div className="flex flex-col gap-2 px-1">
           <div>
@@ -136,7 +136,7 @@ const UserList = ({
               ))}
             </div> */}
           </div>
-          {arrayContent.map((user, index) => (
+          {arrayContent.map((user) => (
             <div
               key={user.uid}
               className="relative shrink-0 h-24 bg-gray-700 hover:bg-indigo-900 border-2 border-gray-600 rounded-lg transition overflow-hidden"

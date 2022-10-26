@@ -9,30 +9,30 @@ const MenuType = ({
   setMovieItems,
 }) => {
   return (
-    <div className="flex justify-between items-center bg-[#0e1921] h-[38px] w-[90vw] max-w-[1000px] mx-auto">
+    <div className="flex justify-between items-center bg-[#0e1921] h-[38px] w-[100vw] max-w-[1000px] mx-auto">
       <div className="flex gap-1">
-        <div className="bg-[#3a5162] h-9 w-[20vw] max-w-56 text-center text-white">
-          <Link to={"/"}>
-            <a>
-              <button onClick={() => handleTypeAndItems(movieItems)}>
+        <Link to={"/"}>
+          <button onClick={() => handleTypeAndItems(movieItems)}>
+            <div className="bg-[#3a5162] hover:bg-opacity-80 transition h-9 w-[30vw] lg:w-[350px] max-w-56 text-center text-white">
+              <a>
                 <div className="px-3 py-2 text-base rounded-full hover:scale-[1.05]">
                   MOVIE
                 </div>
-              </button>
-            </a>
-          </Link>
-        </div>
-        <div className="bg-[#3a5162] h-9 w-[20vw] max-w-56 text-center text-white">
-          <Link to={"/"}>
-            <a>
-              <button onClick={() => handleTypeAndItems(!movieItems)}>
+              </a>
+            </div>
+          </button>
+        </Link>
+        <Link to={"/"}>
+          <button onClick={() => handleTypeAndItems(!movieItems)}>
+            <div className="bg-[#3a5162] hover:bg-opacity-80 transition h-9 w-[30vw] lg:w-[350px] max-w-56 text-center text-white">
+              <a>
                 <div className="px-3 py-2 text-base rounded-full hover:scale-[1.05]">
                   SERIES
                 </div>
-              </button>
-            </a>
-          </Link>
-        </div>
+              </a>
+            </div>
+          </button>
+        </Link>
       </div>
       <div className=" pr-2">
         <Search setListSearch={setListSearch} setMovieItems={setMovieItems} />

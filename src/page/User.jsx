@@ -42,20 +42,20 @@ const User = () => {
         </div>
       )}
       {isUser && (
-        <div className="flex flex-col justify-center">
-          <div className="flex justify-between pt-8 px-4">
-            <div className="w-[300px]">
+        <div className="flex flex-col justify-center items-center lg:items-stretch gap-2">
+          <div className="flex flex-col lg:flex-row lg:jusstify-center justify-between pt-8 px-4">
+            <div className="lg:w-[300px] w-[50vw] self-center lg:self-start">
               <Profile />
             </div>
-            <div className="">
-              <div className="w-full max-w-[500px] h-[600px] bg-[#0E1921] border-2 rounded-lg border-[#747474]">
+            <div className="mt-4 lg:mt-0">
+              <div className="w-[70vw] lg:w-[500px] h-[600px] bg-[#0E1921] border-2 rounded-lg border-[#747474]">
                 <div className="h-full overflow-auto">
                   <FriendList />
                 </div>
               </div>
             </div>
           </div>
-          <div>
+          <div className="w-[70vw] lg:w-full">
             <div className="mx-auto mt-8  w-full max-w-[900px] bg-[#0E1921] bg-opacity-50 border-2 rounded-lg border-[#747474] pl-1 pt-1">
               <div className="">
                 <Wishlist uid={uid} />

@@ -51,7 +51,7 @@ const CastomHero = ({
                           uid={uid}
                         />
 
-                        <Link
+                        {/* <Link
                           to={`/room/${(+new Date()).toString(
                             16
                           )}_${typeContent}_${movieID}_${movieTitle}`}
@@ -59,7 +59,7 @@ const CastomHero = ({
                           <a className="bg-[#3a5162] px-1 py-1 sm:px-4 sm:py-3 text-md sm:text-lg rounded-lg">
                             Create room
                           </a>
-                        </Link>
+                        </Link> */}
                       </div>
                     ) : (
                       <div>
@@ -78,7 +78,10 @@ const CastomHero = ({
                   Genres:
                   {genres &&
                     genres.map((genre, index) => (
-                      <div key={index} className="">
+                      <div
+                        key={index}
+                        className="text-sm whitespace-nowrap overflow-hidden"
+                      >
                         | {genre.name}
                       </div>
                     ))}
@@ -88,7 +91,9 @@ const CastomHero = ({
                     Duration: {movieDuration} min
                   </div>
                 )}
-                <span className=" max-w-3xl">{overview}</span>
+                <span className="text-sm py-2 max-w-3xl flex-wrap">
+                  {overview}
+                </span>
               </div>
             </div>
           </div>

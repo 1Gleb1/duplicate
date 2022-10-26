@@ -163,7 +163,7 @@ const Movie = () => {
 
   // console.log(movie);
   return (
-    <div className="max-w-[1000px] mx-auto bg-[#0f2c41] min-h-sreen flex flex-col justify-center items-center">
+    <div className="max-w-[1000px] mx-auto bg-[#0f2c41] min-h-sreen flex flex-col justify-center items-center px-4">
       <CastomHero
         auth={auth}
         uid={uid}

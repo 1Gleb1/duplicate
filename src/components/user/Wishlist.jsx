@@ -55,19 +55,21 @@ const Wishlist = ({ uid }) => {
     // deletePlaylist(indexPlaylist);
     const newArray = arrayWishlist ? arrayWishlist : [];
     const key = Object.keys(newArray[indexPlaylist])[0];
-    const array = Object.values(newArray[indexPlaylist]);
-    array[0].splice(indexMovie, 1);
+    // const array = Object.values(newArray[indexPlaylist]);
+    // array[0].splice(indexMovie, 1);
     // newArray[indexPlaylist].splice(indexMovie);
 
-    console.log(array);
-    if (array.length) {
-      const keyString = JSON.stringify(key);
-      const arrayString = JSON.stringify(array[0]);
-      const playlistStirng = JSON.stringify(...newArray);
-      const newItem = `{  "playlist": [${playlistStirng},{${keyString} : ${arrayString}}    ]}`;
-      const parseNewItem = JSON.parse(newItem);
+    // console.log(newArray[indexPlaylist][key].splice(indexMovie, 1));
+    if (newArray.length) {
+      // const keyString = JSON.stringify(key);
+      // const arrayString = JSON.stringify(array[0]);
+      // const playlistStirng = JSON.stringify(...newArray);
+      // const newItem = `{  "playlist": [${playlistStirng},{${keyString} : ${arrayString}}    ]}`;
+      // const parseNewItem = JSON.parse(newItem);
+      newArray[indexPlaylist][key].splice(indexMovie, 1);
+      console.log(newArray);
       const docRef = doc(firestore, `favorite/${uid}`);
-      await setDoc(docRef, parseNewItem);
+      await setDoc(docRef, { playlist: newArray });
     }
   };
 
@@ -104,20 +106,24 @@ const Wishlist = ({ uid }) => {
     <div>
       <div className="max-w-xl flex flex-wrap gap-5 ">
         {/* <div className="relative w-[900px] h-[250px] "> */}
-        <div className="flex flex-row">
-          {arrayWishlist ? (
-            <Tabs
-              arrayTabs={arrayPlaylistName}
-              arrayContent={arrayPlaylistContent}
-              //
-              deletePlaylist={deletePlaylist}
-              deleteMovieFromPlaylist={deleteMovieFromPlaylist}
-            />
-          ) : (
-            <div className="flex justify-center items-center w-[60vw] h-56 text-2xl bg-gray-800">
-              <span>У вас еще нет плейлистов</span>
-            </div>
-          )}
+        <div className="relative h-64 w-[300px] lg:w-[1000px]">
+          <div className="flex flex-row">
+            {arrayWishlist ? (
+              <Tabs
+                arrayTabs={arrayPlaylistName}
+                arrayContent={arrayPlaylistContent}
+                //
+                deletePlaylist={deletePlaylist}
+                deleteMovieFromPlaylist={deleteMovieFromPlaylist}
+              />
+            ) : (
+              <div className="absolute top-0 left-0 right-0  bottom-0  bg-gray-800 w-[69vw] lg:w-[890px]">
+                <span className="flex justify-center items-center h-full ">
+                  У вас еще нет плейлистов
+                </span>
+              </div>
+            )}
+          </div>
         </div>
         {/* </div> */}
       </div>

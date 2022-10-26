@@ -29,8 +29,8 @@ const Search = ({ setListSearch }) => {
   };
 
   return (
-    <div className="relative w-52 h-8">
-      <div className="absolute w-56 h-[34px] top-0 -left-0 z-0  "></div>
+    <div className="relative w-[15vw] lg:w-52 h-8">
+      <div className="absolute w-[15vw] lg:w-56 h-[34px] top-0 -left-0 z-0  "></div>
       <div className="form-control absolute top-1 left-0 z-50">
         <form className="input-group" onSubmit={(e) => enterEvent(e, keyword)}>
           {/* <input
@@ -46,7 +46,7 @@ const Search = ({ setListSearch }) => {
             </button>
           </div> */}
           <label class="search">
-            <div className=" p-4  flex justify-center items-center h-4">
+            <div className=" lg:p-4  flex justify-center items-center h-4">
               {" "}
               {/* bg-gray-700 */}
               <AiOutlineSearch />
