@@ -20,6 +20,7 @@ import CastomHero from "../components/movie/CastomHero";
 import Comments from "../components/movie/Comments";
 import LikeDis from "../components/movie/LikeDis";
 import { useCallback } from "react";
+import { Helmet } from "react-helmet";
 
 const Movie = () => {
   const [collectionMovie, setCollectionMovie] = useState([]);
@@ -163,67 +164,50 @@ const Movie = () => {
 
   // console.log(movie);
   return (
-    <div className="max-w-[1000px] mx-auto bg-[#0f2c41] min-h-sreen flex flex-col justify-center items-center px-4">
-      <CastomHero
-        auth={auth}
-        uid={uid}
-        image={image}
-        imgW500={imgW500}
-        movieTitle={movie.title}
-        genres={genres}
-        movieDuration={movie.runtime}
-        overview={movie.overview}
-        movieID={movie.id}
-        movieName={movie.name}
-        originalTitle={movie.original_title}
-        handleAdd={handleAdd}
-        handleAddCallback={handleAddCallback}
-        typeContent={typeContent}
-      />
-      <div className="h-[600px]">
-        <Player
-          movieURL={movie.imdb_id}
-          title={movie.name}
-          typeContent={typeContent}
-          // title={movie.original_name}
-          originalLanguage={movie.original_language}
-          originalName={movie.original_name}
-          mediaID={movie.id}
-          genres={genres}
-        />
-      </div>
-      {/* <LikeDis imdbID={imdbId} /> */}
+    <div>
+      <Helmet>
+        <title>{movie.title}</title>
+      </Helmet>
 
-      <div>
-        {collectionMovie.length ? (
-          <div className="w-[1000px] ">
-            <div className="pl-12 w-[900px] flex flex-col items-start gap-1 flex-wrap mb-8">
-              <span className="text-3xl mb-4"> Collection:</span>
-              {collectionMovie &&
-                collectionMovie.map((movie, index) => (
-                  <Link
-                    key={index}
-                    to={
-                      movie.vote_average > 0
-                        ? `/movie/movie_${movie.id}_${movie.title}`
-                        : ""
-                    }
-                  >
-                    <div className="hover:underline">
-                      {movie.original_title}
-                    </div>
-                    {/* {<Poster movie={movie} />} */}
-                  </Link>
-                ))}
-            </div>
-            <div className="h-20 w-[1000px] bg-[#1c405a]" />
-            <div className="pl-12 w-[900px] flex flex-col flex-wrap pt-8 mb-8">
-              <span className="text-3xl mb-4"> Related:</span>
-              <div className="flex gap-6 mb-4 w-[800px]">
+      <div className="max-w-[1000px] mx-auto bg-[#0f2c41] min-h-sreen flex flex-col justify-center items-center px-4">
+        <CastomHero
+          auth={auth}
+          uid={uid}
+          image={image}
+          imgW500={imgW500}
+          movieTitle={movie.title}
+          genres={genres}
+          movieDuration={movie.runtime}
+          overview={movie.overview}
+          movieID={movie.id}
+          movieName={movie.name}
+          originalTitle={movie.original_title}
+          handleAdd={handleAdd}
+          handleAddCallback={handleAddCallback}
+          typeContent={typeContent}
+        />
+        <div className="h-[600px]">
+          <Player
+            movieURL={movie.imdb_id}
+            title={movie.name}
+            typeContent={typeContent}
+            // title={movie.original_name}
+            originalLanguage={movie.original_language}
+            originalName={movie.original_name}
+            mediaID={movie.id}
+            genres={genres}
+          />
+        </div>
+        {/* <LikeDis imdbID={imdbId} /> */}
+
+        <div>
+          {collectionMovie.length ? (
+            <div className="w-[1000px] ">
+              <div className="pl-12 w-[900px] flex flex-col items-start gap-1 flex-wrap mb-8">
+                <span className="text-3xl mb-4"> Collection:</span>
                 {collectionMovie &&
                   collectionMovie.map((movie, index) => (
                     <Link
-                      className="w-36"
                       key={index}
                       to={
                         movie.vote_average > 0
@@ -231,22 +215,45 @@ const Movie = () => {
                           : ""
                       }
                     >
-                      {<Poster movie={movie} />}
+                      <div className="hover:underline">
+                        {movie.original_title}
+                      </div>
+                      {/* {<Poster movie={movie} />} */}
                     </Link>
                   ))}
               </div>
+              <div className="h-20 w-[1000px] bg-[#1c405a]" />
+              <div className="pl-12 w-[900px] flex flex-col flex-wrap pt-8 mb-8">
+                <span className="text-3xl mb-4"> Related:</span>
+                <div className="flex gap-6 mb-4 w-[800px]">
+                  {collectionMovie &&
+                    collectionMovie.map((movie, index) => (
+                      <Link
+                        className="w-36"
+                        key={index}
+                        to={
+                          movie.vote_average > 0
+                            ? `/movie/movie_${movie.id}_${movie.title}`
+                            : ""
+                        }
+                      >
+                        {<Poster movie={movie} />}
+                      </Link>
+                    ))}
+                </div>
+              </div>
+              {/* <div className="h-20 w-[1000px] bg-[#1c405a]" /> */}
             </div>
-            {/* <div className="h-20 w-[1000px] bg-[#1c405a]" /> */}
-          </div>
-        ) : (
-          <div></div>
-        )}
-      </div>
+          ) : (
+            <div></div>
+          )}
+        </div>
 
-      <div className="max-w-[900px] w-full my-12">
-        <div className="flex flex-col gap-6">
-          <span className="text-3xl">Comments:</span>
-          <Comments id={movie.id} />
+        <div className="max-w-[900px] w-full my-12">
+          <div className="flex flex-col gap-6">
+            <span className="text-3xl">Comments:</span>
+            <Comments id={movie.id} />
+          </div>
         </div>
       </div>
     </div>
