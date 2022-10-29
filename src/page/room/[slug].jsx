@@ -1,7 +1,8 @@
 import { getAuth } from "firebase/auth";
-import { onValue, ref, serverTimestamp, set } from "firebase/database";
+import { onValue, ref, serverTimestamp, set, update } from "firebase/database";
 import { doc, setDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import tmdbApi from "../../api/tmdbApi";
 import Player from "../../components/movie/Player";
@@ -12,8 +13,8 @@ import { database, firestore } from "../../firebase/clientApp";
 const Together = () => {
   const [mediaContent, setMediaContent] = useState({});
   const [handleTime, setHandleTime] = useState({});
-  const [usersTime, setUsersTime] = useState();
-  const [usersName, setUsersName] = useState();
+  const [usersTime, setUsersTime] = useState([]);
+  const [usersName, setUsersName] = useState([]);
   const params = useParams();
   const chank = params.slug.split("_");
   const roomID = chank[0];
@@ -23,7 +24,8 @@ const Together = () => {
   const [time, setTime] = useState(0);
 
   const auth = getAuth();
-  const timeUserEnter = "guest";
+  const newDate = new Date();
+  const timeUserEnter = "guest" + newDate.getMinutes();
   const uid = auth.currentUser ? auth.currentUser.uid : timeUserEnter;
 
   // CONTROl
@@ -50,6 +52,51 @@ const Together = () => {
       .contentWindow.postMessage({ api: "pause" }, "*");
   };
 
+  // const getTime = () => {
+
+  const refTimeThisUser = ref(database, "/rooms", roomID, uid);
+
+  window.addEventListener("message", async function (event) {
+    let newTime = event.data.event == "time" && Math.round(event.data.time);
+    // setTime(newTime);
+    // await set(ref(database, `rooms/`, roomID), { time: newTime });
+    const updates = {};
+    updates["/rooms" + `/${roomID}` + `/${uid}`] = newTime;
+    update(ref(database), updates);
+  });
+
+  // onValue(refTimeThisUser, (snapshot) => {
+  //   const userTimes = snapshot.val();
+  //   console.log("onValue: ", userTimes);
+  //   // setInterval(setUsersTime(userTimes, 100)); //////d//
+  // });
+
+  useEffect(() => {
+    return onValue(
+      ref(database, "/rooms" + `/${roomID}` + `/${uid}`),
+      (snapshot) => {
+        // const userTimes = snapshot.val();
+        console.log(snapshot.key);
+        setUsersTime([{ time: snapshot.val() }]);
+        setUsersName([{ name: snapshot.key }]);
+      }
+      // {
+      //   onlyOnce: true,
+      // }
+    );
+  }, []);
+  console.log("Value: ", usersTime);
+
+  // window.addEventListener("message", function (event) {
+  //   event.preventDefault();
+  //   updateTime();
+  //   let nowTime = event.data.event == "time" && event.data.time;
+  //   let roundNowTime = Math.round(nowTime);
+  //   console.log(roundNowTime);
+  //   return roundNowTime;
+  // });
+
+  // getTime();
   // получение времени
   // window.addEventListener("message", function (event) {
   //   time = time ? Math.round(event.data.time) : 10;
@@ -73,12 +120,26 @@ const Together = () => {
   // });
   // }, 1000);
   // console.log(time);
-  // const setTime = async (time) => {
-  //   await set(ref(database, `rooms/` + roomID + `/${uid}`), {
-  //     time,
-  //   });
-  // update(ref(database), { time: 15 });
+
+  // const refTimeThisUser = ref(database, "/room", roomID, uid);
+  // const updateTime = async (time) => {
+  //   await set(ref(database, `rooms/` + roomID));
+  //   update(ref(database), { time: time });
   // };
+
+  // onValue(
+  //   refTimeThisUser,
+  //   () =>
+  //     window.addEventListener("message", function (event) {
+  //       let newTime = event.data.event == "time" && event.data.time;
+  //       // setTime(newTime);
+
+  //       console.log(newTime);
+  //     }),
+  //   {
+  //     onlyOnce: true,
+  //   },
+  // );
 
   // const getTimeAllUsers = () => {
   //   const timeAllUsersRef = ref(database, `rooms/${roomID}`);
@@ -154,14 +215,18 @@ const Together = () => {
         {/* <button onClick={() => setTime(time)}>SetTime</button> */}
         {/* <button onClick={() => logTime()}>Time Plaer</button> */}
       </div>
-
-      <div>
-        {/* {usersName.map((name, index) => (
-          <div key={index}>{name}</div>
-        ))} */}
-        {/* {usersTime.map((time, index) => (
-          <div key={index}>{time}</div>
-        ))} */}
+      <div className="flex gap-4">
+        {/* <span>:</span> */}
+        {usersName.map((userName, index) => (
+          <div key={index}>
+            <span>{userName.name}:</span>
+          </div>
+        ))}
+        {usersTime.map((userTime, index) => (
+          <div key={index}>
+            <span>{userTime.time}</span>
+          </div>
+        ))}
       </div>
 
       {/* <div>

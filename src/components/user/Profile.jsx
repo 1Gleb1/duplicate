@@ -39,7 +39,7 @@ const Profile = () => {
   return (
     <div className=" border-2 border-[#0e1921]">
       <div className="px-6 py-2 bg-[#0e1921] w-full max-w-64 text-center">
-        Профиль
+        Profile
       </div>
       <div className="text-xl text-center my-4">
         {auth.currentUser.displayName
@@ -58,7 +58,7 @@ const Profile = () => {
       </div>
       <div className="p-4 mt-12 text-center">
         <label>
-          <h4> Сменить фото </h4>
+          <h4> Select image </h4>
           <input
             type="file"
             ref={imageRef}

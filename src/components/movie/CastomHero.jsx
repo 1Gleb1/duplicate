@@ -51,7 +51,7 @@ const CastomHero = ({
                           uid={uid}
                         />
 
-                        {/* <Link
+                        <Link
                           to={`/room/${(+new Date()).toString(
                             16
                           )}_${typeContent}_${movieID}_${movieTitle}`}
@@ -59,7 +59,7 @@ const CastomHero = ({
                           <a className="bg-[#3a5162] px-1 py-1 sm:px-4 sm:py-3 text-md sm:text-lg rounded-lg">
                             Create room
                           </a>
-                        </Link> */}
+                        </Link>
                       </div>
                     ) : (
                       <div>

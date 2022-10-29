@@ -7,7 +7,7 @@
   background: none;
   border: none;
   transition: width 0.3s;
-  width: 15vw;
+  width: 10vw;
   padding: 0.2rem 0.5rem;
   border-radius: 5px;
   font-size: 0.9rem;
@@ -18,7 +18,7 @@
 .search__form:focus {
   border: none;
   outline: none;
-  width: 10vw;
+  width: 8vw;
   background: #728899;
   color: black;
 }
